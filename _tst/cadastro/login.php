@@ -1,0 +1,56 @@
+<?php
+
+include "../phpfunction/header_1.php";
+
+include "../phpfunction/configuracao.php";
+
+$tabela = "usuarios";     //o nome de sua tabela
+
+$db = mysql_connect($host, $login_db, $senha_db);
+$basedados = mysql_select_db($database);
+
+$entityBody = file_get_contents('php://input');
+//$entityBody = '{"email":"paulo.e.nery@uol.com.br","senha":"1234"}';
+
+$arrayBody = json_decode($entityBody, TRUE);
+
+if (is_null($arrayBody)) {
+    $email = $_REQUEST ["email"];
+    $senha = $_REQUEST ["senha"];
+} else {
+    $email = $arrayBody ["email"];
+    $senha = $arrayBody ["senha"];
+}
+
+$email = strtolower($email);
+$email = str_replace(" ", "", $email);
+
+$query = "SELECT "
+        . "email, "
+        . "AES_DECRYPT(senha,'password') AS senha , "
+        . "usuariosID, "
+        . "nome, "
+        . "perfilID "
+        . "FROM `$tabela` "
+        . "WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password')";
+
+$resultado = mysql_query($query, $db) or print mysql_error();
+$contagem = mysql_num_rows($resultado);
+$retorno = array();
+$i = 0;
+
+while ($linha = mysql_fetch_array($resultado)) {
+    $retorno[$i]["usuariosID"] = $linha["usuariosID"];
+    $retorno[$i]["perfilID"] = $linha["perfilID"];
+    http_response_code(200);
+}
+if ($contagem == 0) {
+    $retorno[$i]["mensagem"] = "Dados de Login inválido";
+    http_response_code(400);
+}
+//var_dump($retorno) . '</br>';
+$json_retorno = json_encode($retorno);
+//var_dump($json_retorno) . '</br>';
+http_response_code();
+echo $json_retorno;
+?>

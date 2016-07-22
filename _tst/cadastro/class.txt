@@ -1,0 +1,5 @@
+{ 
+	"classificacao":"5",
+	"pacientesID":"10",
+	"especialistasID":"2"
+}

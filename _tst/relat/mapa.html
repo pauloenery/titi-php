@@ -1,0 +1,31 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGM0iDaLpM7L5yVBicQX75H8Xz0WKbBpw&callback=initMap"></script>
+<script>
+    var myHome = new google.maps.LatLng( < ?php echo $latitude ? > , < ?php echo $longitude ? > );
+            var locations = [ < ?php echo $locations ? > ];
+            function initialize() {
+                var mapProp = {
+                    center: myHome,
+                    zoom: 12,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                for (i = 0; i < locations.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        title: locations[i][0],
+                        map: map
+                    });
+                    var infowindow = new google.maps.InfoWindow({
+                        content: locations[i][0]
+                    });
+                    infowindow.open(map, marker);
+                }
+
+                marker.setMap(map);
+            }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+

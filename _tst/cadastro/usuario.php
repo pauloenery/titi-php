@@ -53,7 +53,6 @@ SELECT
     perfilespecialista, 
     habilidade, 
     experiencia, 
-    classificacao, 
     disponibilidade, 
     ativo       
 FROM 

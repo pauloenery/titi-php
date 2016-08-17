@@ -81,7 +81,7 @@ if (isset($email)) {
             if ($msg_usuario["status"] == "OK") {
                 $usuariosID = $return_usuario[1]["usuariosID"];
                 $return_paciente = novo_paciente($usuariosID);
-                // testar retorno especialista
+                // testar retorno Paciente
                 http_response_code(200);
             } else {
                 //
@@ -94,11 +94,11 @@ if (isset($email)) {
         if ($msg_usuario["status"] == "OK") {
             if ($pacientesID == "") { //novo_paciente
                 $return_paciente = novo_paciente($usuariosID);
-                // testar retorno especialista
+                // testar retorno Paciente
                 http_response_code(200);
             } else {
-                //$return_paciente = update_especialista($usuariosID, $pacientesID);
-                // testar retorno especialista
+                //$return_paciente = update_paciente($usuariosID, $pacientesID);
+                // testar retorno Paciente
                 http_response_code(200);
             }
         } else {

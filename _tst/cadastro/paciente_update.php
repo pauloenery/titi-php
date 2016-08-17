@@ -53,11 +53,12 @@ if (is_null($arrayBody)) {
     $senha = (isset($arrayBody [$i] ["senha"]) ? $arrayBody [$i] ["senha"] : "");
     $termos = (isset($arrayBody [$i] ["termos"]) ? $arrayBody [$i] ["termos"] : "");
     $nascimento = date('d/m/Y', strtotime($nascimento));
+    $pacientesID = (isset($arrayBody [$i] ["pacientesID"]) ? $arrayBody [$i] ["pacientesID"] : "");
 }
 
 $retorno = array();
 $return_usuario = array();
-$return_especialista = array();
+$return_paciente = array();
 
 if (isset($email)) {
 
@@ -76,9 +77,33 @@ if (isset($email)) {
         } else {
             $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
             //var_dump($return_usuario);
+            $msg_usuario = $return_usuario[0];
+            if ($msg_usuario["status"] == "OK") {
+                $usuariosID = $return_usuario[1]["usuariosID"];
+                $return_paciente = novo_paciente($usuariosID);
+                // testar retorno especialista
+                http_response_code(200);
+            } else {
+                //
+                http_response_code(400);
+            }
         }
     } else {
         $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+        $msg_usuario = $return_usuario[0];
+        if ($msg_usuario["status"] == "OK") {
+            if ($pacientesID == "") { //novo_paciente
+                $return_paciente = novo_paciente($usuariosID);
+                // testar retorno especialista
+                http_response_code(200);
+            } else {
+                //$return_paciente = update_especialista($usuariosID, $pacientesID);
+                // testar retorno especialista
+                http_response_code(200);
+            }
+        } else {
+            http_response_code(400);
+        }
     }
     if (count($return_usuario) > 0) {
         $retorno[$i]["status"] = $return_usuario[0]["status"];
@@ -172,6 +197,66 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     } else {
         $retorno[$i]["status"] = "OK";
         $retorno[$i]["mensagem"] = "Usuário não Alterado";
+    }
+    return $retorno;
+}
+function novo_paciente($usuariosID) {
+    include "../phpfunction/configuracao.php";
+    $tabela = "pacientes";     //o nome de sua tabela
+    $db = mysql_connect($host, $login_db, $senha_db);
+    $basedados = mysql_select_db($database);
+    $pesquisar = mysql_query("SELECT * FROM $tabela WHERE usuariosID = '$usuariosID'", $db);
+    $contagem = mysql_num_rows($pesquisar);
+    $retorno = array();
+    $i = 0;
+
+    if ($contagem == 1) {
+        $retorno[$i]["status"] = "ERRO";
+        $retorno[$i]["mensagem"] = "Paciente já cadastrado";
+        $i++;
+    }
+
+    if ($i == 0) {
+        $querynovousuario = "INSERT INTO `$tabela` (usuariosID)
+                                        VALUES ($usuariosID)";
+
+        $cadastrar = mysql_query($querynovousuario, $db);
+
+        if ($cadastrar == 1) {
+            $retorno[$i]["status"] = "OK";
+            $retorno[$i]["mensagem"] = "Paciente incluido com sucesso";
+            $i++;
+        } else {
+            $retorno[$i]["status"] = "ERRO";
+            $retorno[$i]["mensagem"] = "Paciente não incluido";
+            $i++;
+        }
+    }
+    return $retorno;
+}
+
+function update_paciente($usuariosID, $pacientesID) {
+    include "../phpfunction/configuracao.php";
+    $tabela = "pacientes";     //o nome de sua tabela
+
+    $db = mysql_connect($host, $login_db, $senha_db);
+    $basedados = mysql_select_db($database);
+
+    $queryupdate = "UPDATE $tabela SET "
+            . "`disponibilidade` = '$disponibilidade'  WHERE pacientesID = $pacientesID";
+
+    $cadastrar = mysql_query($queryupdate, $db);
+    $retorno = array();
+    $i = 0;
+
+    if ($cadastrar == 1) {
+        $retorno[$i]["status"] = "OK";
+        $retorno[$i]["mensagem"] = "Paciente Alterado com sucesso";
+        $i++;
+    } else {
+        $retorno[$i]["status"] = "ERRO";
+        $retorno[$i]["mensagem"] = "Paciente não Alterado";
+        $i++;
     }
     return $retorno;
 }

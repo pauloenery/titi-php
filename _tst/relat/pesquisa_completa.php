@@ -4,6 +4,7 @@ include "../phpfunction/header_1.php";
 
 $cep = $_GET ["cep"];
 $atuacao = $_GET ["atuacao"];
+$pacientesID = $_GET ["pacientesID"];
 
 $address = urlencode($cep);
 
@@ -40,11 +41,13 @@ $queryprofissional = "SELECT
             usuarios.email,
             usuarios.latitude,
             usuarios.longitude,
+            especialistas.especialistasID,
             especialistas.orgaoemissor,
             especialistas.nr_identificacao,
             especialistas.atuacao,
             especialistas.experiencia,
-            especialistas.classificacao
+            especialistas.classificacao,
+            especialistas.total
                 FROM especialistas 
                 INNER JOIN usuarios
                 ON especialistas.usuariosID=usuarios.usuariosID
@@ -56,7 +59,6 @@ $queryprofissional = "SELECT
         . "longitude BETWEEN  '$longitude1' and '$longitude2'";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());
-$aux = mysql_fetch_array($sql);
 $retorno = array();
 $locations = array();
 $i = 0;
@@ -71,8 +73,9 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["cel"] = $dados["cel"];
     $retorno[$i]["email"] = $dados["email"];
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
-//    $retorno[$i]["experiencia"] = $dados["experiencia"];
+    $retorno[$i]["especialistasID"] = $dados["especialistasID"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
+    $retorno[$i]["total"] = $dados["total"];
 
     $i++;
 }

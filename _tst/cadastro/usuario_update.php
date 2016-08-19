@@ -49,6 +49,8 @@ if (is_null($arrayBody)) {
     $classificacao = $_REQUEST ["classificacao"];
     $disponibilidade = $_REQUEST ["disponibilidade"];
     //$ativo              = $_REQUEST ["ativo"];
+    $comentario = $_REQUEST ["comentario"];
+    $pacientesID = $_REQUEST ["pacientesID"];
 } else {
     $usuariosID = (isset($arrayBody [$i] ["usuariosID"]) ? $arrayBody [$i] ["usuariosID"] : "");
     $perfilID = (isset($arrayBody [$i] ["perfilID"]) ? $arrayBody [$i] ["perfilID"] : "");
@@ -84,6 +86,7 @@ if (is_null($arrayBody)) {
     $disponibilidade = (isset($arrayBody [$i] ["disponibilidade"]) ? $arrayBody [$i] ["disponibilidade"] : "");
     //$ativo = (isset($arrayBody [$i] ["ativo"]) ? $arrayBody [$i] ["ativo"] : "");
 
+    $comentario = (isset($arrayBody [$i] ["comentario"]) ? $arrayBody [$i] ["comentario"] : "");
     $pacientesID = (isset($arrayBody [$i] ["pacientesID"]) ? $arrayBody [$i] ["pacientesID"] : "");
 }
 
@@ -165,7 +168,7 @@ $json_retorno = json_encode($retorno);
 http_response_code();
 echo $json_retorno;
 
-function update_classificacao($especialistasID, $pacientesID, $classificacao) {
+function update_classificacao($especialistasID, $pacientesID, $classificacao, $comentario) {
     include "../phpfunction/configuracao.php";
 
     $db = mysql_connect($host, $login_db, $senha_db);

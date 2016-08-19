@@ -59,7 +59,6 @@ $queryprofissional = "SELECT
         . "longitude BETWEEN  '$longitude1' and '$longitude2'";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());
-$aux = mysql_fetch_array($sql);
 $retorno = array();
 $locations = array();
 $i = 0;

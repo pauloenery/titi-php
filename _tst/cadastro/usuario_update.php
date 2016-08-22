@@ -82,10 +82,10 @@ if (is_null($arrayBody)) {
     $perfilespecialista = (isset($arrayBody [$i] ["perfilespecialista"]) ? $arrayBody [$i] ["perfilespecialista"] : "");
     $habilidade = (isset($arrayBody [$i] ["habilidade"]) ? $arrayBody [$i] ["habilidade"] : "");
     $experiencia = (isset($arrayBody [$i] ["experiencia"]) ? $arrayBody [$i] ["experiencia"] : "");
-    $classificacao = (isset($arrayBody [$i] ["classificacao"]) ? $arrayBody [$i] ["classificacao"] : "0");
     $disponibilidade = (isset($arrayBody [$i] ["disponibilidade"]) ? $arrayBody [$i] ["disponibilidade"] : "");
     //$ativo = (isset($arrayBody [$i] ["ativo"]) ? $arrayBody [$i] ["ativo"] : "");
 
+    $myclass = (isset($arrayBody [$i] ["myclass"]) ? $arrayBody [$i] ["myclass"] : "0");
     $comentario = (isset($arrayBody [$i] ["comentario"]) ? $arrayBody [$i] ["comentario"] : "");
     $pacientesID = (isset($arrayBody [$i] ["pacientesID"]) ? $arrayBody [$i] ["pacientesID"] : "");
 }
@@ -152,8 +152,8 @@ if (!($email == "")) {
         $i++;
     }
 }
-if (!($classificacao == "0")) {
-    $return_especialista = update_classificacao($especialistasID, $pacientesID, $classificacao);
+if (!($myclass == "0")) {
+    $return_especialista = update_classificacao($especialistasID, $pacientesID, $myclass, $comentario);
     if (count($return_especialista) > 0) {
         $retorno[$i]["status"] = $return_especialista[0]["status"];
         $retorno[$i]["mensagem"] = $return_especialista[0]["mensagem"];
@@ -168,7 +168,7 @@ $json_retorno = json_encode($retorno);
 http_response_code();
 echo $json_retorno;
 
-function update_classificacao($especialistasID, $pacientesID, $classificacao, $comentario) {
+function update_classificacao($especialistasID, $pacientesID, $myclass, $comentario) {
     include "../phpfunction/configuracao.php";
 
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -188,14 +188,15 @@ function update_classificacao($especialistasID, $pacientesID, $classificacao, $c
 
     if ($contagem == 1) {    //encontrou uma nota altera a classificação 
         $queryupdate = "UPDATE $tabela SET "
-                . "`classificacao` = '$classificacao'  "
+                . "`classificacao` = '$myclass' , "
+                . "`comentario` = '$comentario'  "
                 . "WHERE "
                 . "especialistasID = $especialistasID and "
                 . "pacientesID = $pacientesID";
         $resultupdate = mysql_query($queryupdate, $db);
     } else {                 // não encontrou insere uma classificação 
-        $queryinsert = "INSERT INTO `$tabela` (especialistasID, pacientesID, classificacao)
-                            VALUES ('$especialistasID','$pacientesID','$classificacao')";
+        $queryinsert = "INSERT INTO `$tabela` (especialistasID, pacientesID, classificacao, comentario)
+                            VALUES ('$especialistasID','$pacientesID','$myclass','$comentario')";
         $resultinsert = mysql_query($queryinsert, $db);
     }
     $queryselect = "SELECT count(*) AS total, AVG(classificacao) AS classificacao "

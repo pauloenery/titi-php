@@ -25,14 +25,18 @@ if (is_null($arrayBody)) {
 $email = strtolower($email);
 $email = str_replace(" ", "", $email);
 
-$query = "SELECT "
-        . "email, "
-        . "AES_DECRYPT(senha,'password') AS senha , "
-        . "usuariosID, "
-        . "nome, "
-        . "perfilID "
-        . "FROM `$tabela` "
-        . "WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password')";
+$query = "SELECT 
+            email, 
+            AES_DECRYPT(senha,'password') AS senha , 
+            usuarios.usuariosID, 
+            nome, 
+            perfilID, 
+            especialistasID, 
+            pacientesID 
+        FROM `$tabela` 
+        LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID 
+        LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID 
+        WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password')";
 
 $resultado = mysql_query($query, $db) or print mysql_error();
 $contagem = mysql_num_rows($resultado);
@@ -42,6 +46,8 @@ $i = 0;
 while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["usuariosID"] = $linha["usuariosID"];
     $retorno[$i]["perfilID"] = $linha["perfilID"];
+    $retorno[$i]["especialistasID"] = $linha["especialistasID"];
+    $retorno[$i]["pacientesID"] = $linha["pacientesID"];
     http_response_code(200);
 }
 if ($contagem == 0) {

@@ -63,7 +63,11 @@ $retorno = array();
 $locations = array();
 $i = 0;
 
+
 while ($dados = mysql_fetch_array($sql)) {
+    if ($i == 0) {
+        $pacientes_pesquisaID = historico($pacientesID, $cep, $atuacao);  
+    }
 
     $retorno[$i]["nome"] = $dados["nome"];
     $retorno[$i]["latitude"] = $dados["latitude"];
@@ -76,6 +80,8 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["especialistasID"] = $dados["especialistasID"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
     $retorno[$i]["total"] = $dados["total"];
+    
+    historico_item($pacientes_pesquisaID, $dados["especialistasID"]);
 
     $i++;
 }
@@ -106,6 +112,24 @@ function cargo($cargo) {
     } else {
         return 'Não informado';
     }
+}
+
+function historico($pacientesID, $cep, $atuacao) {
+    include "../phpfunction/configuracao.php";
+    $db = mysql_connect($host, $login_db, $senha_db);
+    $basedados = mysql_select_db($database);
+    $query = "INSERT INTO `pacientes_pesquisa` (pacientesID, cep, atuacao) VALUES ($pacientesID, '$cep', '$atuacao')";
+    $sqlhist = mysql_query($query, $db) or die($query . "<br/><br/>" . mysql_error());
+    $last_inserted = mysql_insert_id();
+    return $last_inserted; 
+}
+
+function historico_item($pacientes_pesquisaID, $especialistasID) {
+    include "../phpfunction/configuracao.php";
+    $db = mysql_connect($host, $login_db, $senha_db);
+    $basedados = mysql_select_db($database);
+    $query = "INSERT INTO `pacientes_pesquisa_item` (pacientes_pesquisaID, especialistasID) VALUES ($pacientes_pesquisaID, $especialistasID)";
+    $sqlhist = mysql_query($query, $db) or die($query . "<br/><br/>" . mysql_error());
 }
 
 ?>

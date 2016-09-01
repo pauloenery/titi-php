@@ -7,8 +7,8 @@ $tabela = "usuarios";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
-//$entityBody = file_get_contents('php://input');
-$entityBody = '{"email":"paulo.e.nery@gmail.com"}';
+$entityBody = file_get_contents('php://input');
+//$entityBody = '{"email":"paulo.e.nery@gmail.com"}';
 //var_dump($entityBody);
 $arrayBody = [json_decode($entityBody, TRUE)];
 //var_dump($arrayBody);

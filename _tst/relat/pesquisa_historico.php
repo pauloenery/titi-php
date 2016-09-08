@@ -43,7 +43,7 @@ LEFT JOIN especialistas_classificacao
 
 $sql = mysql_query($queryhistorico, $db) or die($queryhistorico . "<br/><br/>" . mysql_error());
 //$aux = mysql_fetch_array($sql);
-var_dump($aux) . '</br>';
+//var_dump($aux) . '</br>';
 
 $retorno = array();
 $i = 0;

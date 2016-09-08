@@ -43,9 +43,12 @@ SELECT
     cidade, 
     estado, 
     AES_DECRYPT(senha,'password') AS senha , 
-    termos
+    termos,
+    pacientesID
 FROM 
     usuarios
+LEFT JOIN 
+    pacientes ON usuarios.usuariosID = pacientes.usuariosID
 WHERE 
     usuarios.usuariosID = $usuariosID";
 
@@ -72,6 +75,7 @@ while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["estado"] = $linha["estado"];
     $retorno[$i]["senha"] = $linha["senha"];
     $retorno[$i]["termos"] = $linha["termos"];
+    $retorno[$i]["pacientesID"] = $linha["pacientesID"];
     http_response_code(200);
 }
 if ($contagem == 0) {

@@ -3,23 +3,27 @@
 include "../phpfunction/header_1.php";
 
 include "../phpfunction/configuracao.php";
+
+$email = $_GET ["email"];
+
 $tabela = "usuarios";     //o nome de sua tabela
+
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
-$entityBody = file_get_contents('php://input');
-//$entityBody = '{"email":"paulo.e.nery@gmail.com"}';
-//var_dump($entityBody);
-$arrayBody = [json_decode($entityBody, TRUE)];
-//var_dump($arrayBody);
+//$entityBody = file_get_contents('php://input');
+
+//$arrayBody = json_decode($entityBody, TRUE);
+
 $i = 0;
 
+/*
 if (is_null($arrayBody)) {
     $email = $_REQUEST ["email"];
 } else {
     $email = (isset($arrayBody [$i] ["email"]) ? $arrayBody [$i] ["email"] : "");
 }
-
+*/
 $nome = '';
 $senha = '';
 $email = strtolower($email);

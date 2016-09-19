@@ -9,7 +9,7 @@ $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
 $queryhistorico = "
-   SELECT 
+   SELECT DISTINCT 
         pacientes.usuariosID AS p_usuariosID,
        	usuarios.usuariosID AS E_usuariosID,
        	usuarios.nome,
@@ -18,7 +18,6 @@ $queryhistorico = "
         usuarios.foto,
         usuarios.email,
         pacientes.pacientesID,
-	pacientes_pesquisa_item.pacientes_pesquisaID,
 	especialistas.especialistasID,
 	especialistas.classificacao,
 	especialistas.total,

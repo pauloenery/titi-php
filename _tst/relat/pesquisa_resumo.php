@@ -49,13 +49,13 @@ $queryprofissional = "SELECT
         . "longitude BETWEEN  '$longitude1' and '$longitude2'";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());
-$aux = mysql_fetch_array($sql);
+//$aux = mysql_fetch_array($sql);
 $retorno = array();
 $i = 0;
 while ($dados = mysql_fetch_array($sql)) {
 
     $retorno[$i]["foto"] = $dados["foto"];
-    $retorno[$i]["nome"] = $dados["nome"];
+    $retorno[$i]["nome"] = nome($dados["nome"]);
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
 //    $retorno[$i]["experiencia"] = $dados["experiencia"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
@@ -85,4 +85,14 @@ function cargo($cargo) {
     }
 }
 
+function nome($nome) {
+
+    $pos = stripos($nome, " ");
+
+    if ($pos === false) {
+        return $nome;
+    } else {
+        return substr($nome, 0, $pos);
+    }
+}
 ?>

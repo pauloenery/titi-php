@@ -3,7 +3,7 @@
 include "../phpfunction/header_1.php";
 
 include "../phpfunction/configuracao.php";
-$tabela = "especialistas";     //o nome de sua tabela
+//$tabela = "especialistas";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
@@ -60,7 +60,7 @@ while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["usuariosID"] = $linha["usuariosID"];
     $retorno[$i]["perfilID"] = $linha["perfilID"];
     $retorno[$i]["nome"] = $linha["nome"];
-    $retorno[$i]["nascimento"] = $linha["nascimento"];
+    $retorno[$i]["nascimento"] = nascimento($linha["nascimento"]);
     $retorno[$i]["sexo"] = $linha["sexo"];
     $retorno[$i]["tel"] = $linha["tel"];
     $retorno[$i]["cel"] = $linha["cel"];
@@ -87,4 +87,13 @@ $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
 http_response_code();
 echo $json_retorno;
+
+function nascimento($nascimento) {
+    $date = DateTime::createFromFormat('d/m/Y', $nascimento);
+
+    //$nascimento = $date->format('Y-m-d');
+    $nascimento = $date->format(DATE_W3C);
+    return $nascimento;
+}
+
 ?>

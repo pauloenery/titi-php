@@ -16,4 +16,6 @@ echo "<h1>Tabela: "
  . "<a href='./monitor_relat.php?tabela=pacientes_pesquisa_item'>Itens Pesquisa Pacientes</a><br></h1>";
 echo "<h1>Tabela: "
  . "<a href='./monitor_relat.php?tabela=pagamento'>Pagamentos</a><br></h1>";
+echo "<h1>Tabela: "
+ . "<a href='./monitor_relat.php?tabela=contato'>Contato</a><br></h1>";
 ?>

@@ -39,7 +39,7 @@ $query = "SELECT
         LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID 
         LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID 
         WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password') and perfilID=$perfilID";
-echo $query;
+//echo $query;
 
 $resultado = mysql_query($query, $db) or print mysql_error();
 $contagem = mysql_num_rows($resultado);

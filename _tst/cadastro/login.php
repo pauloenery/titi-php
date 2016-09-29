@@ -10,16 +10,18 @@ $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
 $entityBody = file_get_contents('php://input');
-//$entityBody = '{"email":"paulo.e.nery@uol.com.br","senha":"1234"}';
+//$entityBody = '{"email":"a2@email.com","senha":"1234","perfilID":"3"}';
 
 $arrayBody = json_decode($entityBody, TRUE);
 
 if (is_null($arrayBody)) {
     $email = $_REQUEST ["email"];
     $senha = $_REQUEST ["senha"];
+    $perfilID = $_REQUEST ["perfilID"];
 } else {
     $email = $arrayBody ["email"];
     $senha = $arrayBody ["senha"];
+    $perfilID = $arrayBody ["perfilID"];
 }
 
 $email = strtolower($email);
@@ -36,7 +38,8 @@ $query = "SELECT
         FROM `$tabela` 
         LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID 
         LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID 
-        WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password')";
+        WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password') and perfilID=$perfilID";
+echo $query;
 
 $resultado = mysql_query($query, $db) or print mysql_error();
 $contagem = mysql_num_rows($resultado);

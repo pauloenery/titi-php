@@ -16,6 +16,7 @@ require("sendgrid-php.php");
 include '../cadastro/password.php';
 
 
+
 /* CREATE THE SENDGRID MAIL OBJECT
 ====================================================*/
 $sendgrid = new SendGrid( $sg_username, $sg_password );

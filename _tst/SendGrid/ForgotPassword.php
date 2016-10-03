@@ -12,10 +12,7 @@
 
 require("sendgrid-php.php");
 
-
 include '../cadastro/password.php';
-
-
 
 /* CREATE THE SENDGRID MAIL OBJECT
 ====================================================*/

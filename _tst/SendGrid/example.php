@@ -13,12 +13,7 @@
 require("sendgrid-php.php");
 
 
-/* USER CREDENTIALS
-/  Fill in the variables below with your SendGrid
-/  username and password.
-====================================================*/
-$sg_username = "paulo.nery";
-$sg_password = "1q2w3e4r5t";
+include '../cadastro/password.php';
 
 
 /* CREATE THE SENDGRID MAIL OBJECT

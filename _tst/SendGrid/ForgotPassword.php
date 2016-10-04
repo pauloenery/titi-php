@@ -30,11 +30,7 @@ try {
     $mail->
     setFrom( "titi@titi.net.br" )->
     addTo( $email )->
-<<<<<<< OURS
-    setSubject( "Recuperar de senha" )->
-=======
     setSubject( "Recuperar senha" )->
->>>>>>> THEIRS
     setText( "Caro(a) $nome, \n\n"
             . "Atendendo a um pedido feito em seu nome, estamos enviando a \n"
             . "senha de acesso � TITI cadastrada para esse e-mail. \n\n"

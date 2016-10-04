@@ -34,7 +34,6 @@ SELECT
     tel, 
     cel, 
     email, 
-    foto, 
     cpf_cnpj, 
     rg, 
     endereco, 
@@ -65,7 +64,6 @@ while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["tel"] = $linha["tel"];
     $retorno[$i]["cel"] = $linha["cel"];
     $retorno[$i]["email"] = $linha["email"];
-    $retorno[$i]["foto"] = $linha["foto"];
     $retorno[$i]["cpf_cnpj"] = $linha["cpf_cnpj"];
     $retorno[$i]["rg"] = $linha["rg"];
     $retorno[$i]["endereco"] = $linha["endereco"];

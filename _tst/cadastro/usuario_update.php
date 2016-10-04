@@ -24,7 +24,7 @@ if (is_null($arrayBody)) {
     $tel = $_REQUEST ["tel"];
     $cel = $_REQUEST ["cel"];
     $email = $_REQUEST ["email"];
-    $foto = $_REQUEST ["foto"];
+    $profilePicture = $_REQUEST ["profilePicture"];
     $cpf_cnpj = $_REQUEST ["cpf_cnpj"];
     $rg = $_REQUEST ["rg"];
     $endereco = $_REQUEST ["endereco"];
@@ -60,7 +60,7 @@ if (is_null($arrayBody)) {
     $tel = (isset($arrayBody [$i] ["tel"]) ? $arrayBody [$i] ["tel"] : "");
     $cel = (isset($arrayBody [$i] ["cel"]) ? $arrayBody [$i] ["cel"] : "");
     $email = (isset($arrayBody [$i] ["email"]) ? $arrayBody [$i] ["email"] : "");
-    $foto = (isset($arrayBody [$i] ["foto"]) ? $arrayBody [$i] ["foto"] : "");
+    $profilePicture = (isset($arrayBody [$i] ["profilePicture"]) ? $arrayBody [$i] ["profilePicture"] : "");
     $cpf_cnpj = (isset($arrayBody [$i] ["cpf_cnpj"]) ? $arrayBody [$i] ["cpf_cnpj"] : "");
     $rg = (isset($arrayBody [$i] ["rg"]) ? $arrayBody [$i] ["rg"] : "");
     $endereco = (isset($arrayBody [$i] ["endereco"]) ? $arrayBody [$i] ["endereco"] : "");
@@ -110,7 +110,7 @@ if (!($email == "")) {
         if ($i > 0) {
             http_response_code(400);
         } else {
-            $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+            $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
             //var_dump($return_usuario);
             $msg_usuario = $return_usuario[0];
             if ($msg_usuario["status"] == "OK") {
@@ -125,7 +125,7 @@ if (!($email == "")) {
         }
     } else {
 
-        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
         $msg_usuario = $return_usuario[0];
         if ($msg_usuario["status"] == "OK") {
             if ($especialistasID == "") { //novo_especialista
@@ -237,7 +237,7 @@ function update_classificacao($especialistasID, $pacientesID, $myclass, $comenta
     return $retorno;
 }
 
-function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
+function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
     include "../phpfunction/configuracao.php";
     $tabela = "usuarios";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -247,11 +247,9 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
     $latitude = $localizacao[0];
     $longitude = $localizacao[1];
 
-    $nome_imagem = "";
-    //$nome_imagem = upload_foto();
 
     $querynovousuario = "INSERT INTO `$tabela` (nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, latitude, longitude, senha, perfilID, foto, termos)
-                                        VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$nome_imagem','$termos')";
+                                        VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$profilePicture','$termos')";
     $cadastrar = mysql_query($querynovousuario, $db);
     $sqlerro = mysql_errno($db) . ':' . mysql_error($db) . '\\n';
 
@@ -275,7 +273,7 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
     return $retorno;
 }
 
-function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
+function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
     include "../phpfunction/configuracao.php";
     $tabela = "usuarios";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -284,6 +282,7 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     $localizacao = geo_address($endereco, $bairro, $cep, $cidade, $estado);
     $latitude = $localizacao [0];
     $longitude = $localizacao [1];
+
 
     $queryupdate = "UPDATE $tabela SET "
             . "`nome` = '$nome' , "
@@ -300,10 +299,15 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
             . "`estado` = '$estado' , "
             . "`termos` = '$termos' , "
             . "`latitude` = '$latitude ' , "
-            . "`longitude` = '$longitude' , "
+            . "`longitude` = '$longitude' , ";
+    if (!$profilePicture == "") {
+        $queryupdate = $queryupdate
+                . "`foto` = '$profilePicture' , ";
+    }
+    $queryupdate = $queryupdate
             . "`senha` = AES_ENCRYPT('$senha','password')"
             . " WHERE usuariosID = $usuariosID";
-
+    
     $cadastrar = mysql_query($queryupdate, $db);
     $retorno = array();
 
@@ -408,63 +412,4 @@ function geo_address($endereco, $bairro, $cep, $cidade, $estado) {
 
     endif;
     return array($latitude, $longitude);
-}
-
-function upload_foto() {
-    if ($_POST['cadastrar']) {
-
-        // Recupera os dados dos campos
-        $foto = $_FILES["foto"];
-
-        // Se a foto estiver sido selecionada
-        if (!empty($foto["name"])) {
-
-            // Largura máxima em pixels
-            $largura = 150;
-            // Altura máxima em pixels
-            $altura = 180;
-            // Tamanho máximo do arquivo em bytes
-            $tamanho = 1000;
-
-            // Verifica se o arquivo é uma imagem
-            if (!eregi("^image\/(pjpeg|jpeg|png|gif|bmp)$", $foto["type"])) {
-                $error[1] = "Isso não é uma imagem.";
-            }
-
-            // Pega as dimensões da imagem
-            $dimensoes = getimagesize($foto["tmp_name"]);
-
-            // Verifica se a largura da imagem é maior que a largura permitida
-            if ($dimensoes[0] > $largura) {
-                $error[2] = "A largura da imagem não deve ultrapassar " . $largura . " pixels";
-            }
-
-            // Verifica se a altura da imagem é maior que a altura permitida
-            if ($dimensoes[1] > $altura) {
-                $error[3] = "Altura da imagem não deve ultrapassar " . $altura . " pixels";
-            }
-
-            // Verifica se o tamanho da imagem é maior que o tamanho permitido
-            if ($arquivo["size"] > $tamanho) {
-                $error[4] = "A imagem deve ter no máximo " . $tamanho . " bytes";
-            }
-
-            // Se não houver nenhum erro
-            if (count($error) == 0) {
-
-                // Pega extensão da imagem
-                preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
-
-                // Gera um nome único para a imagem
-                $nome_imagem = md5(uniqid(time())) . "." . $ext[1];
-
-                // Caminho de onde ficará a imagem
-                $caminho_imagem = "fotos/" . $nome_imagem;
-
-                // Faz o upload da imagem para seu respectivo caminho
-                move_uploaded_file($foto["tmp_name"], $caminho_imagem);
-            }
-        }
-    }
-    return $nome_imagem;
 }

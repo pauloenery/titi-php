@@ -23,7 +23,6 @@ if (is_null($arrayBody)) {
     $tel = $_REQUEST ["tel"];
     $cel = $_REQUEST ["cel"];
     $email = $_REQUEST ["email"];
-    $foto = $_REQUEST ["foto"];
     $cpf_cnpj = $_REQUEST ["cpf_cnpj"];
     $rg = $_REQUEST ["rg"];
     $endereco = $_REQUEST ["endereco"];
@@ -42,7 +41,6 @@ if (is_null($arrayBody)) {
     $tel = (isset($arrayBody [$i] ["tel"]) ? $arrayBody [$i] ["tel"] : "");
     $cel = (isset($arrayBody [$i] ["cel"]) ? $arrayBody [$i] ["cel"] : "");
     $email = (isset($arrayBody [$i] ["email"]) ? $arrayBody [$i] ["email"] : "");
-    $foto = (isset($arrayBody [$i] ["foto"]) ? $arrayBody [$i] ["foto"] : "");
     $cpf_cnpj = (isset($arrayBody [$i] ["cpf_cnpj"]) ? $arrayBody [$i] ["cpf_cnpj"] : "");
     $rg = (isset($arrayBody [$i] ["rg"]) ? $arrayBody [$i] ["rg"] : "");
     $endereco = (isset($arrayBody [$i] ["endereco"]) ? $arrayBody [$i] ["endereco"] : "");
@@ -75,7 +73,7 @@ if (isset($email)) {
         if ($i > 0) {
             http_response_code(400);
         } else {
-            $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+            $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
             //var_dump($return_usuario);
             $msg_usuario = $return_usuario[0];
             if ($msg_usuario["status"] == "OK") {
@@ -89,7 +87,7 @@ if (isset($email)) {
             }
         }
     } else {
-        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
         $msg_usuario = $return_usuario[0];
         if ($msg_usuario["status"] == "OK") {
             if ($pacientesID == "") { //novo_paciente
@@ -120,7 +118,7 @@ $json_retorno = json_encode($retorno);
 http_response_code();
 echo $json_retorno;
 
-function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
+function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
     include "../phpfunction/configuracao.php";
     $tabela = "usuarios";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -130,11 +128,8 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
     $latitude = $localizacao[0];
     $longitude = $localizacao[1];
 
-    $nome_imagem = "";
-    //$nome_imagem = upload_foto();
-
-    $querynovousuario = "INSERT INTO `$tabela` (nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, latitude, longitude, senha, perfilID, foto, termos)
-                                        VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$nome_imagem','$termos')";
+    $querynovousuario = "INSERT INTO `$tabela` (nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, latitude, longitude, senha, perfilID, termos)
+                                        VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$termos')";
     $cadastrar = mysql_query($querynovousuario, $db);
     $sqlerro = mysql_errno($db) . ':' . mysql_error($db) . '\\n';
 
@@ -158,7 +153,7 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
     return $retorno;
 }
 
-function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $foto, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
+function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
     include "../phpfunction/configuracao.php";
     $tabela = "usuarios";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);

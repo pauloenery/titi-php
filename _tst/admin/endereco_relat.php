@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $PHP_SELF = "../relat/endereco_relat.php";
+        $PHP_SELF = "../admin/endereco_relat.php";
         include "../phpfunction/configuracao.php";
         $db = mysql_connect($host, $login_db, $senha_db);
         $basedados = mysql_select_db($database);

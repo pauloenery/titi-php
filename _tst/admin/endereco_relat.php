@@ -51,7 +51,7 @@ and open the template in the editor.
                 echo "<td>" . $aux[$i] . "</td>";
             }
             echo "<td>"
-            . "<a href='../cadastro/update_endereco.php?usuariosID=" . $usuariosID . "'>Converte Endereço</a>"
+            . "<a href='../admin/update_endereco.php?usuariosID=" . $usuariosID . "'>Converte Endereço</a>"
             . "</td>";
             echo "</tr>";
         }

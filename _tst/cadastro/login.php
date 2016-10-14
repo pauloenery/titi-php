@@ -32,7 +32,8 @@ $query = "SELECT
             AES_DECRYPT(senha,'password') AS senha , 
             usuarios.usuariosID, 
             nome, 
-            perfilID, 
+            perfilID,
+            termos,
             especialistasID, 
             pacientesID 
         FROM `$tabela` 
@@ -49,6 +50,7 @@ $i = 0;
 while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["usuariosID"] = $linha["usuariosID"];
     $retorno[$i]["perfilID"] = $linha["perfilID"];
+    $retorno[$i]["termos"] = $linha["termos"];
     $retorno[$i]["especialistasID"] = $linha["especialistasID"];
     $retorno[$i]["pacientesID"] = $linha["pacientesID"];
     http_response_code(200);

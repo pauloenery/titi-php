@@ -316,7 +316,7 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
         $retorno[$i]["status"] = "OK";
         $retorno[$i]["mensagem"] = "Usuário Alterado com sucesso";
     } else {
-        $retorno[$i]["status"] = "OK";
+        $retorno[$i]["status"] = "ERRO";
         $retorno[$i]["mensagem"] = "Usuário não Alterado";
     }
     return $retorno;

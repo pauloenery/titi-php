@@ -1,4 +1,0 @@
-﻿{ 
-	"classificacao":"5",
-	"email":"paulo.e.nery@uol.com.br"
-}

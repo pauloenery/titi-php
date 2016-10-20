@@ -25,6 +25,8 @@ if ($resp['status'] == 'OK'):
 endif;
 
 include "../phpfunction/configuracao.php";
+include "../phpfunction/userfunction.php";
+
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
@@ -45,6 +47,7 @@ $queryprofissional = "SELECT
             especialistas.orgaoemissor,
             especialistas.nr_identificacao,
             especialistas.atuacao,
+            especialistas.periodo,
             especialistas.experiencia,
             especialistas.classificacao,
             especialistas.total
@@ -78,6 +81,8 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["email"] = $dados["email"];
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
     $retorno[$i]["especialistasID"] = $dados["especialistasID"];
+    $retorno[$i]["periodo"] = periodo($dados["periodo"]);
+    $retorno[$i]["experiencia"] = $dados["experiencia"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
     $retorno[$i]["total"] = $dados["total"];
     
@@ -97,22 +102,6 @@ echo $json_retorno;
 
 //echo $json_locations;
 
-function cargo($cargo) {
-
-    if ($cargo == "1") {
-        return 'Auxiliar/Técnico enfermagem';
-    } else if ($cargo == "2") {
-        return 'Enfermeiro';
-    } else if ($cargo == "3") {
-        return 'Cuidador';
-    } else if ($cargo == "4") {
-        return 'Fisioterapeuta';
-    } else if ($cargo == "5") {
-        return 'Fonoaudiólogo';
-    } else {
-        return 'Não informado';
-    }
-}
 
 function historico($pacientesID, $cep, $atuacao) {
     include "../phpfunction/configuracao.php";

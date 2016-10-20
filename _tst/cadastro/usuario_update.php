@@ -125,7 +125,7 @@ if (!($email == "")) {
         }
     } else {
 
-        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha);
         $msg_usuario = $return_usuario[0];
         if ($msg_usuario["status"] == "OK") {
             if ($especialistasID == "") { //novo_especialista
@@ -273,7 +273,7 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
     return $retorno;
 }
 
-function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {
+function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha) {
     include "../phpfunction/configuracao.php";
     $tabela = "usuarios";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -297,7 +297,6 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
             . "`cep` = '$cep' , "
             . "`cidade` = '$cidade' , "
             . "`estado` = '$estado' , "
-            . "`termos` = '$termos' , "
             . "`latitude` = '$latitude ' , "
             . "`longitude` = '$longitude' , ";
     if (!$profilePicture == "") {

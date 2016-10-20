@@ -4,13 +4,15 @@ include "../phpfunction/header_1.php";
 
 include "../phpfunction/configuracao.php";
 
+include "../phpfunction/token.php";
+
 $tabela = "usuarios";     //o nome de sua tabela
 
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
 $entityBody = file_get_contents('php://input');
-//$entityBody = '{"email":"a2@email.com","senha":"1234","perfilID":"3"}';
+//$entityBody = '{"email":"paulo.e.nery@uol.com.br","senha":"1234","perfilID":"2"}';
 
 $arrayBody = json_decode($entityBody, TRUE);
 
@@ -46,9 +48,10 @@ $resultado = mysql_query($query, $db) or print mysql_error();
 $contagem = mysql_num_rows($resultado);
 $retorno = array();
 $i = 0;
-
+$usuariosID = '';
 while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["usuariosID"] = $linha["usuariosID"];
+    $usuariosID = $linha["usuariosID"];
     $retorno[$i]["perfilID"] = $linha["perfilID"];
     $retorno[$i]["termos"] = $linha["termos"];
     $retorno[$i]["especialistasID"] = $linha["especialistasID"];
@@ -58,10 +61,25 @@ while ($linha = mysql_fetch_array($resultado)) {
 if ($contagem == 0) {
     $retorno[$i]["mensagem"] = "Dados de Login inválido";
     http_response_code(400);
+} else {
+    $token = auth($usuariosID, perfil($perfilID));
+    $retorno[$i]["token"] = $token["token"];
+    $retorno[$i]["userData"] = $token["userData"];
 }
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
 http_response_code();
 echo $json_retorno;
+
+function perfil($perfilID) {
+    if ($perfilID == 1) {
+        return "Admin";
+    } elseif ($perfilID == 2) {
+        return "Profissional";
+    } elseif ($perfilID == 3) {
+        return "Paciente";
+    }
+}
+
 ?>

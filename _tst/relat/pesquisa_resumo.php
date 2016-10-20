@@ -24,6 +24,8 @@ if ($resp['status'] == 'OK'):
 endif;
 
 include "../phpfunction/configuracao.php";
+include "../phpfunction/userfunction.php";
+
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
@@ -57,7 +59,6 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["foto"] = $dados["foto"];
     $retorno[$i]["nome"] = nome($dados["nome"]);
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
-//    $retorno[$i]["experiencia"] = $dados["experiencia"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
 
     $i++;
@@ -68,31 +69,5 @@ $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
 echo $json_retorno;
 
-function cargo($cargo) {
 
-    if ($cargo == "1") {
-        return 'Auxiliar/Técnico enfermagem';
-    } else if ($cargo == "2") {
-        return 'Enfermeiro';
-    } else if ($cargo == "3") {
-        return 'Cuidador';
-    } else if ($cargo == "4") {
-        return 'Fisioterapeuta';
-    } else if ($cargo == "5") {
-        return 'Fonoaudiólogo';
-    } else {
-        return 'Não informado';
-    }
-}
-
-function nome($nome) {
-
-    $pos = stripos($nome, " ");
-
-    if ($pos === false) {
-        return $nome;
-    } else {
-        return substr($nome, 0, $pos);
-    }
-}
 ?>

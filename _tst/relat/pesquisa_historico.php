@@ -5,6 +5,7 @@ include "../phpfunction/header_1.php";
 $pacientesID = $_GET ["pacientesID"];
 
 include "../phpfunction/configuracao.php";
+include "../phpfunction/userfunction.php";
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
@@ -74,32 +75,5 @@ echo $json_retorno;
 
 //echo $json_locations;
 
-function cargo($cargo) {
-
-    if ($cargo == "1") {
-        return 'Auxiliar/Técnico enfermagem';
-    } else if ($cargo == "2") {
-        return 'Enfermeiro';
-    } else if ($cargo == "3") {
-        return 'Cuidador';
-    } else if ($cargo == "4") {
-        return 'Fisioterapeuta';
-    } else if ($cargo == "5") {
-        return 'Fonoaudiólogo';
-    } else {
-        return 'Não informado';
-    }
-}
-
-function periodo($periodo) {
-
-    if ($periodo == "1") {
-        return 'Diurno';
-    } else if ($periodo == "2") {
-        return 'Noturno';
-    } else {
-        return 'Não informado';
-    }
-}
 
 ?>

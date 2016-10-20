@@ -13,7 +13,7 @@ $entityBody = file_get_contents('php://input');
 
 //var_dump($entityBody);
 $arrayBody = [json_decode($entityBody, TRUE)];
-var_dump($arrayBody);
+//var_dump($arrayBody);
 $i = 0;
 
 if (is_null($arrayBody)) {

@@ -13,6 +13,8 @@ and open the template in the editor.
         <?php
         $PHP_SELF = "../admin/profissional_relat.php";
         include "../phpfunction/configuracao.php";
+        include "../phpfunction/userfunction.php";
+
         $db = mysql_connect($host, $login_db, $senha_db);
         $basedados = mysql_select_db($database);
 
@@ -84,7 +86,7 @@ and open the template in the editor.
             . "window.location.href="
             . "'../phpfunction/ativar.php?especialistasID=$especialistasID&ativo=$no_ativo'"
             . '">'
-            . $botao 
+            . $botao
             . "</BUTTON>"
             . "</td>";
 
@@ -107,10 +109,10 @@ and open the template in the editor.
             echo "<td>" . $aux['nr_identificacao'] . "</td>";
             echo "<td>" . $aux['registro'] . "</td>";
             echo "<td>" . $aux['UF'] . "</td>";
-            echo "<td>" . $aux['atuacao'] . "</td>";
-            echo "<td>" . $aux['periodo'] . "</td>";
-            echo "<td>" . $aux['perfilespecialista'] . "</td>";
-            echo "<td>" . $aux['habilidade'] . "</td>";
+            echo "<td>" . cargo($aux['atuacao']) . "</td>";
+            echo "<td>" . periodo($aux['periodo']) . "</td>";
+            echo "<td>" . perfilespecialista($aux['perfilespecialista']) . "</td>";
+            echo "<td>" . habilidade($aux['habilidade']) . "</td>";
             echo "<td>" . $aux['experiencia'] . "</td>";
             echo "<td>" . $aux['classificacao'] . "</td>";
             echo "<td>" . $aux['total'] . "</td>";
@@ -122,21 +124,6 @@ and open the template in the editor.
         echo "</table>";
 
         include("paginacao.php"); // Chama o arquivo que monta a paginação. ex: << anterior 1 2 3 4 5 próximo >>		echo "<br><br>"; // Vai servir só para dar uma linha de espaço entre a paginação e o conteúdo		while ($aux = mysql_fetch_array($sql)) {		/* Ai o resto é com voces em montar como deve parecer o conteúdo */	}
-
-        function ativo($ativo) {
-            if ($ativo == 1) {
-                return "Desativar";
-            } else {
-                return "Ativar";
-            }
-        }
-        function no_ativo($ativo) {
-            if ($ativo == 1) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
         ?>
     </body>
 </html>

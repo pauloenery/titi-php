@@ -44,24 +44,24 @@ $query = "SELECT
         WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password') and perfilID=$perfilID";
 //echo $query;
 
-$resultado = mysql_query($query, $db) or print mysql_error();
-$contagem = mysql_num_rows($resultado);
+$resultado = mysql_query($query, $db)  or die($query) . mysql_error();
+$contagem = mysql_num_rows($resultado) or die($query) . mysql_error(); 
 $retorno = array();
-$i = 0;
-$usuariosID = '';
-while ($linha = mysql_fetch_array($resultado)) {
-    $retorno[$i]["usuariosID"] = $linha["usuariosID"];
-    $usuariosID = $linha["usuariosID"];
-    $retorno[$i]["perfilID"] = $linha["perfilID"];
-    $retorno[$i]["termos"] = $linha["termos"];
-    $retorno[$i]["especialistasID"] = $linha["especialistasID"];
-    $retorno[$i]["pacientesID"] = $linha["pacientesID"];
-    http_response_code(200);
-}
 if ($contagem == 0) {
     $retorno[$i]["mensagem"] = "Dados de Login inválido";
     http_response_code(400);
 } else {
+    $i = 0;
+    $usuariosID = '';
+    while ($linha = mysql_fetch_array($resultado)) {
+        $retorno[$i]["usuariosID"] = $linha["usuariosID"];
+        $usuariosID = $linha["usuariosID"];
+        $retorno[$i]["perfilID"] = $linha["perfilID"];
+        $retorno[$i]["termos"] = $linha["termos"];
+        $retorno[$i]["especialistasID"] = $linha["especialistasID"];
+        $retorno[$i]["pacientesID"] = $linha["pacientesID"];
+        http_response_code(200);
+    }
     $token = auth($usuariosID, perfil($perfilID));
     $retorno[$i]["token"] = $token["token"];
     $retorno[$i]["userData"] = $token["userData"];

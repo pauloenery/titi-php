@@ -36,8 +36,8 @@ and open the template in the editor.
         // Serve para contar quantos registros você tem na seua tabela para fazer a paginação	
         $sql_conta = mysql_query($querytabela, $db);
         $quantreg = mysql_num_rows($sql_conta); // Quantidade de registros pra paginação
-        echo $querytabela . "<BR>";
-        echo $quantreg . "<BR>";
+        //echo $querytabela . "<BR>";
+        //echo $quantreg . "<BR>";
 
         echo "<table>";
 

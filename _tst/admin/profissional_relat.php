@@ -19,7 +19,7 @@ and open the template in the editor.
         $basedados = mysql_select_db($database);
 
         //######### INICIO Paginação	
-        $numreg = 20; // Quantos registros por página vai ser mostrado	
+        $numreg = 30; // Quantos registros por página vai ser mostrado	
         $pg = filter_input(INPUT_GET, 'pg', FILTER_SANITIZE_ENCODED);
 
         if (!isset($pg)) {

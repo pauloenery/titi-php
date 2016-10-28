@@ -48,7 +48,10 @@ $queryprofissional = "SELECT
             especialistas.nr_identificacao,
             especialistas.atuacao,
             especialistas.periodo,
-            especialistas.experiencia,
+            especialistas.perfilespecialista,
+            especialistas.habilidade,
+            especialistas.experiencia,            
+            especialistas.minicv,            
             especialistas.classificacao,
             especialistas.total
                 FROM especialistas 
@@ -56,9 +59,11 @@ $queryprofissional = "SELECT
                 ON especialistas.usuariosID=usuarios.usuariosID
                 where perfilID=2 and "
         . "disponibilidade=1 and "
-        . "ativo=1 and "
-        . "atuacao=$atuacao and "
-        . "latitude  BETWEEN  '$latitude1' and '$latitude2' and "
+        . "ativo=1 and ";
+If ($atuacao != 0) {
+    $queryprofissional .= "atuacao=$atuacao and ";
+}
+$queryprofissional .= "latitude  BETWEEN  '$latitude1' and '$latitude2' and "
         . "longitude BETWEEN  '$longitude1' and '$longitude2'";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());
@@ -69,7 +74,7 @@ $i = 0;
 
 while ($dados = mysql_fetch_array($sql)) {
     if ($i == 0) {
-        $pacientes_pesquisaID = historico($pacientesID, $cep, $atuacao);  
+        $pacientes_pesquisaID = historico($pacientesID, $cep, $atuacao);
     }
 
     $retorno[$i]["nome"] = $dados["nome"];
@@ -79,13 +84,16 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["tel"] = $dados["tel"];
     $retorno[$i]["cel"] = $dados["cel"];
     $retorno[$i]["email"] = $dados["email"];
-    $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
     $retorno[$i]["especialistasID"] = $dados["especialistasID"];
+    $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
     $retorno[$i]["periodo"] = periodo($dados["periodo"]);
+    $retorno[$i]["perfilespecialista"] = perfilespecialista($dados["perfilespecialista"]);
+    $retorno[$i]["habilidade"] = habilidade($dados["habilidade"]);
     $retorno[$i]["experiencia"] = $dados["experiencia"];
+    $retorno[$i]["minicv"] = $dados["minicv"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
     $retorno[$i]["total"] = $dados["total"];
-    
+
     historico_item($pacientes_pesquisaID, $dados["especialistasID"]);
 
     $i++;
@@ -110,7 +118,7 @@ function historico($pacientesID, $cep, $atuacao) {
     $query = "INSERT INTO `pacientes_pesquisa` (pacientesID, cep, atuacao) VALUES ($pacientesID, '$cep', '$atuacao')";
     $sqlhist = mysql_query($query, $db) or die($query . "<br/><br/>" . mysql_error());
     $last_inserted = mysql_insert_id();
-    return $last_inserted; 
+    return $last_inserted;
 }
 
 function historico_item($pacientes_pesquisaID, $especialistasID) {

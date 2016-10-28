@@ -22,9 +22,12 @@ $queryhistorico = "
 	especialistas.especialistasID,
 	especialistas.classificacao,
 	especialistas.total,
-	especialistas.atuacao,
-	especialistas.periodo,
-	especialistas.experiencia,
+            especialistas.atuacao,
+            especialistas.periodo,
+            especialistas.perfilespecialista,
+            especialistas.habilidade,
+            especialistas.experiencia,            
+            especialistas.minicv,            
 	especialistas_classificacao.classificacao as myclass,
         especialistas_classificacao.comentario
    FROM pacientes 
@@ -61,6 +64,8 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["total"] = $dados["total"];
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
     $retorno[$i]["periodo"] = periodo($dados["periodo"]);
+    $retorno[$i]["perfilespecialista"] = perfilespecialista($dados["perfilespecialista"]);
+    $retorno[$i]["habilidade"] = habilidade($dados["habilidade"]);
     $retorno[$i]["experiencia"] = $dados["experiencia"];
     $retorno[$i]["myclass"] = $dados["myclass"];
     $retorno[$i]["comentario"] = $dados["comentario"];
@@ -74,6 +79,4 @@ $json_retorno = json_encode($retorno);
 echo $json_retorno;
 
 //echo $json_locations;
-
-
 ?>

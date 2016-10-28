@@ -38,16 +38,17 @@ $queryprofissional = "SELECT
             usuarios.foto,
             usuarios.nome,
             especialistas.atuacao,
-            especialistas.experiencia,
             especialistas.classificacao
                 FROM especialistas 
                 INNER JOIN usuarios
                 ON especialistas.usuariosID=usuarios.usuariosID
                 where perfilID=2 and "
         . "disponibilidade=1 and "
-        . "ativo=1 and "
-        . "atuacao=$atuacao and "
-        . "latitude  BETWEEN  '$latitude1' and '$latitude2' and "
+        . "ativo=1 and ";
+If ($atuacao != 0) {
+    $queryprofissional .= "atuacao=$atuacao and ";
+}
+$queryprofissional .= "latitude  BETWEEN  '$latitude1' and '$latitude2' and "
         . "longitude BETWEEN  '$longitude1' and '$longitude2'";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());

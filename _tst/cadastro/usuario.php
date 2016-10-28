@@ -53,6 +53,7 @@ SELECT
     perfilespecialista, 
     habilidade, 
     experiencia, 
+    minicv,
     disponibilidade, 
     ativo       
 FROM 
@@ -95,6 +96,7 @@ while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["perfilespecialista"] = $linha["perfilespecialista"];
     $retorno[$i]["habilidade"] = $linha["habilidade"];
     $retorno[$i]["experiencia"] = $linha["experiencia"];
+    $retorno[$i]["minicv"] = $linha["minicv"];
     $retorno[$i]["disponibilidade"] = $linha["disponibilidade"];
     //$retorno[$i]["ativo"]               = $linha["ativo"];
     http_response_code(200);

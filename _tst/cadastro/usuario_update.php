@@ -46,6 +46,7 @@ if (is_null($arrayBody)) {
     $perfilespecialista = $_REQUEST ["perfilespecialista"];
     $habilidade = $_REQUEST ["habilidade"];
     $experiencia = $_REQUEST ["experiencia"];
+    $minicv = $_REQUEST ["minicv"];
     $classificacao = $_REQUEST ["classificacao"];
     $disponibilidade = $_REQUEST ["disponibilidade"];
     //$ativo              = $_REQUEST ["ativo"];
@@ -82,6 +83,7 @@ if (is_null($arrayBody)) {
     $perfilespecialista = (isset($arrayBody [$i] ["perfilespecialista"]) ? $arrayBody [$i] ["perfilespecialista"] : "");
     $habilidade = (isset($arrayBody [$i] ["habilidade"]) ? $arrayBody [$i] ["habilidade"] : "");
     $experiencia = (isset($arrayBody [$i] ["experiencia"]) ? $arrayBody [$i] ["experiencia"] : "");
+    $minicv = (isset($arrayBody [$i] ["minicv"]) ? $arrayBody [$i] ["minicv"] : "");
     $disponibilidade = (isset($arrayBody [$i] ["disponibilidade"]) ? $arrayBody [$i] ["disponibilidade"] : "");
     //$ativo = (isset($arrayBody [$i] ["ativo"]) ? $arrayBody [$i] ["ativo"] : "");
 
@@ -115,7 +117,7 @@ if (!($email == "")) {
             $msg_usuario = $return_usuario[0];
             if ($msg_usuario["status"] == "OK") {
                 $usuariosID = $return_usuario[1]["usuariosID"];
-                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $disponibilidade);
+                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
                 // testar retorno especialista
                 http_response_code(200);
             } else {
@@ -129,11 +131,11 @@ if (!($email == "")) {
         $msg_usuario = $return_usuario[0];
         if ($msg_usuario["status"] == "OK") {
             if ($especialistasID == "") { //novo_especialista
-                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $disponibilidade);
+                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
                 // testar retorno especialista
                 http_response_code(200);
             } else {
-                $return_especialista = update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $disponibilidade);
+                $return_especialista = update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
                 // testar retorno especialista
                 http_response_code(200);
             }
@@ -306,7 +308,7 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     $queryupdate = $queryupdate
             . "`senha` = AES_ENCRYPT('$senha','password')"
             . " WHERE usuariosID = $usuariosID";
-    
+
     $cadastrar = mysql_query($queryupdate, $db);
     $retorno = array();
 
@@ -321,7 +323,7 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     return $retorno;
 }
 
-function novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $disponibilidade) {
+function novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade) {
     include "../phpfunction/configuracao.php";
     $tabela = "especialistas";     //o nome de sua tabela
     $db = mysql_connect($host, $login_db, $senha_db);
@@ -338,8 +340,8 @@ function novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $regis
     }
 
     if ($i == 0) {
-        $querynovousuario = "INSERT INTO `$tabela` (usuariosID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, disponibilidade)
-                                        VALUES ($usuariosID,'$orgaoemissor','$nr_identificacao','$registro','$UF','$atuacao','$periodo','$perfilespecialista','$habilidade','$disponibilidade')";
+        $querynovousuario = "INSERT INTO `$tabela` (usuariosID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, minicv, disponibilidade)
+                                        VALUES ($usuariosID,'$orgaoemissor','$nr_identificacao','$registro','$UF','$atuacao','$periodo','$perfilespecialista','$habilidade','$experiencia','$minicv','$disponibilidade')";
 
         $cadastrar = mysql_query($querynovousuario, $db);
 
@@ -356,7 +358,7 @@ function novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $regis
     return $retorno;
 }
 
-function update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $disponibilidade) {
+function update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade) {
     include "../phpfunction/configuracao.php";
     $tabela = "especialistas";     //o nome de sua tabela
 
@@ -372,8 +374,9 @@ function update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_i
             . "`periodo` = '$periodo' , "
             . "`perfilespecialista` = '$perfilespecialista' , "
             . "`habilidade` = '$habilidade'   , "
+            . "`experiencia` = '$experiencia'   , "
+            . "`minicv` = '$minicv'   , "
             . "`disponibilidade` = '$disponibilidade'  WHERE especialistasID = $especialistasID";
-
     $cadastrar = mysql_query($queryupdate, $db);
     $retorno = array();
     $i = 0;

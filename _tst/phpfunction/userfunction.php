@@ -48,6 +48,8 @@ function cargo($cargo) {
         return 'Fisioterapeuta';
     } else if ($cargo == "5") {
         return 'Fonoaudiólogo';
+    } else if ($cargo == "6") {
+        return 'Educador Físico';
     } else {
         return 'Não informado';
     }

@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '256M');
 /*
 if ($_SERVER['HTTP_HOST'] == "titi.net.br") {
     header("Content-Type: application/json; charset=utf-8");

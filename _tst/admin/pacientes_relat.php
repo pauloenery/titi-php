@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        $PHP_SELF = "../admin/profissional_relat.php";
+        $PHP_SELF = "../admin/pacientes_relat.php";
         include "../phpfunction/configuracao.php";
         include "../phpfunction/userfunction.php";
 
@@ -29,7 +29,7 @@ and open the template in the editor.
         $param = "";
         $inicial = $pg * $numreg; //######### FIM dados Paginação		
 
-        $querytabela = "SELECT usuarios.usuariosID, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, especialistasID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, classificacao, total, disponibilidade, ativo FROM usuarios LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID WHERE perfilID = 2";
+        $querytabela = "SELECT usuarios.usuariosID, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, pacientesID, classificacao, total FROM usuarios LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID WHERE perfilID = 3";
 
         // Faz o Select pegando o registro inicial até a quantidade de registros para página	
 
@@ -43,7 +43,6 @@ and open the template in the editor.
         echo "<table border='1' width='300%' >";
         echo "<tr>";
         echo "<td width='200px'>" . 'nome' . "</td>";
-        echo "<td>" . 'ativo' . "</td>";
         echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'sexo' . "</td>";
         echo "<td>" . 'tel' . "</td>";
@@ -58,38 +57,15 @@ and open the template in the editor.
         echo "<td>" . 'estado' . "</td>";
         echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'termos' . "</td>";
-        echo "<td>" . 'especialistasID' . "</td>";
-        echo "<td>" . 'orgaoemissor' . "</td>";
-        echo "<td>" . 'nr_identificacao' . "</td>";
-        echo "<td>" . 'registro' . "</td>";
-        echo "<td>" . 'UF' . "</td>";
-        echo "<td>" . 'atuacao' . "</td>";
-        echo "<td>" . 'periodo' . "</td>";
-        echo "<td>" . 'perfilespecialista' . "</td>";
-        echo "<td>" . 'habilidade' . "</td>";
-        echo "<td>" . 'experiencia' . "</td>";
+        echo "<td>" . 'pacientesID' . "</td>";
         echo "<td>" . 'classificacao' . "</td>";
         echo "<td>" . 'total' . "</td>";
-        echo "<td>" . 'disponibilidade' . "</td>";
         echo "</tr>";
 
         while ($aux = mysql_fetch_array($sql)) {
             $usuariosID = $aux['usuariosID'];
-            $especialistasID = $aux['especialistasID'];
-            $botao = ativo($aux['ativo']);
-            $no_ativo = no_ativo($aux['ativo']);
             echo "<tr>";
             echo "<td>" . $aux['nome'] . "</td>";
-            echo "<td>"
-            . "<BUTTON onclick="
-            . '"'
-            . "window.location.href="
-            . "'../phpfunction/ativar.php?especialistasID=$especialistasID&ativo=$no_ativo'"
-            . '">'
-            . $botao
-            . "</BUTTON>"
-            . "</td>";
-
             echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['sexo'] . "</td>";
             echo "<td>" . $aux['tel'] . "</td>";
@@ -104,19 +80,9 @@ and open the template in the editor.
             echo "<td>" . $aux['estado'] . "</td>";
             echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['termos'] . "</td>";
-            echo "<td>" . $aux['especialistasID'] . "</td>";
-            echo "<td>" . $aux['orgaoemissor'] . "</td>";
-            echo "<td>" . $aux['nr_identificacao'] . "</td>";
-            echo "<td>" . $aux['registro'] . "</td>";
-            echo "<td>" . $aux['UF'] . "</td>";
-            echo "<td>" . cargo($aux['atuacao']) . "</td>";
-            echo "<td>" . periodo($aux['periodo']) . "</td>";
-            echo "<td>" . perfilespecialista($aux['perfilespecialista']) . "</td>";
-            echo "<td>" . habilidade($aux['habilidade']) . "</td>";
-            echo "<td>" . $aux['experiencia'] . "</td>";
+            echo "<td>" . $aux['pacientesID'] . "</td>";
             echo "<td>" . $aux['classificacao'] . "</td>";
             echo "<td>" . $aux['total'] . "</td>";
-            echo "<td>" . $aux['disponibilidade'] . "</td>";
             echo "</tr>";
         }
 

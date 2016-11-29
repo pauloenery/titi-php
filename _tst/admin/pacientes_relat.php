@@ -80,7 +80,16 @@ and open the template in the editor.
             echo "<td>" . $aux['estado'] . "</td>";
             echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['termos'] . "</td>";
-            echo "<td>" . $aux['pacientesID'] . "</td>";
+            echo "<td>"
+            . "<BUTTON onclick="
+            . '"'
+            . "window.open("
+            . "'../admin/historico.php?pacientesID=" . $aux['pacientesID'] . "')"
+            . '">'
+            . $aux['pacientesID'] 
+            . "</BUTTON>"
+            . "</td>";
+
             echo "<td>" . $aux['classificacao'] . "</td>";
             echo "<td>" . $aux['total'] . "</td>";
             echo "</tr>";

@@ -28,8 +28,8 @@ $mail = new SendGrid\Email();
 ====================================================*/
 try {
     $mail->
-    setFrom( "noreplay@titi.net.br" )->
-    addTo( "contato@titi.net.br" )->
+    setFrom( "noreplay@titicuidadores.com.br" )->
+    addTo( "contato@titicuidadores.com.br" )->
     setSubject( "Contato" )->
     setText( "Seu Nome: $nome, \n\n"
             . "E-mail: $email \n\n"

@@ -16,18 +16,17 @@ $queryhistorico = "
        	usuarios.nome,
        	usuarios.cel,
         usuarios.tel,
-        usuarios.foto,
         usuarios.email,
         pacientes.pacientesID,
 	especialistas.especialistasID,
 	especialistas.classificacao,
 	especialistas.total,
-            especialistas.atuacao,
-            especialistas.periodo,
-            especialistas.perfilespecialista,
-            especialistas.habilidade,
-            especialistas.experiencia,            
-            especialistas.minicv,            
+        especialistas.atuacao,
+        especialistas.periodo,
+        especialistas.perfilespecialista,
+        especialistas.habilidade,
+        especialistas.experiencia,            
+        especialistas.minicv,            
 	especialistas_classificacao.classificacao as myclass,
         especialistas_classificacao.comentario
    FROM pacientes 
@@ -47,14 +46,11 @@ LEFT JOIN especialistas_classificacao
 $sql = mysql_query($queryhistorico, $db) or die($queryhistorico . "<br/><br/>" . mysql_error());
 //$aux = mysql_fetch_array($sql);
 //var_dump($aux) . '</br>';
-
 $retorno = array();
 $i = 0;
-
 while ($dados = mysql_fetch_array($sql)) {
 
     $retorno[$i]["nome"] = $dados["nome"];
-    $retorno[$i]["foto"] = $dados["foto"];
     $retorno[$i]["tel"] = $dados["tel"];
     $retorno[$i]["cel"] = $dados["cel"];
     $retorno[$i]["email"] = $dados["email"];
@@ -72,11 +68,9 @@ while ($dados = mysql_fetch_array($sql)) {
 
     $i++;
 }
-
 //var_dump($dados) . '</br>';
 $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
 echo $json_retorno;
-
 //echo $json_locations;
 ?>

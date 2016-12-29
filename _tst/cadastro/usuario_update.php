@@ -119,6 +119,7 @@ if (!($email == "")) {
                 $usuariosID = $return_usuario[1]["usuariosID"];
                 $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
                 // testar retorno especialista
+                include '../SendGrid/BemVindoProfissional.php';
                 http_response_code(200);
             } else {
                 //

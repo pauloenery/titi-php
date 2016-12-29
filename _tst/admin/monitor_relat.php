@@ -38,7 +38,7 @@ and open the template in the editor.
         //echo $querytabela . "<BR>";
         //echo $quantreg . "<BR>";
 
-        echo "<table>";
+        echo "<table border='1' width='100%' >";
 
         while ($aux = mysql_fetch_array($sql)) {
             $it = count($aux) / 2;

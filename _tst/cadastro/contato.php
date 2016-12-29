@@ -1,4 +1,6 @@
 <?php
+set_time_limit( 3600 ); 
+ignore_user_abort( true ); 
 
 include "../phpfunction/header_1.php";
 
@@ -9,8 +11,8 @@ $tabela = "contato";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
-//$entityBody = file_get_contents('php://input');
-$entityBody = file_get_contents('./contato.txt', true);
+$entityBody = file_get_contents('php://input');
+//$entityBody = file_get_contents('./contato.json', true);
 //var_dump($entityBody);
 
 $arrayBody = json_decode($entityBody, TRUE);
@@ -34,7 +36,9 @@ if (is_null($arrayBody)) {
 
 $email = strtolower($email);
 $email = str_replace(" ", "", $email);
-if ($email == "") {
+
+
+if ($email == "" or $nome == "" or $mensagem == "") {
     http_response_code(400);
 } else {
 

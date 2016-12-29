@@ -80,6 +80,7 @@ if (isset($email)) {
                 $usuariosID = $return_usuario[1]["usuariosID"];
                 $return_paciente = novo_paciente($usuariosID);
                 // testar retorno Paciente
+                include '../SendGrid/BemVindoCliente.php';
                 http_response_code(200);
             } else {
                 //

@@ -1,7 +1,7 @@
 <?php
 
 include "../phpfunction/header_1.php";
-
+include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
 //$tabela = "usuarios";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
@@ -13,6 +13,7 @@ $entityBody = file_get_contents('php://input');
 //var_dump($entityBody);
 $arrayBody = [json_decode($entityBody, TRUE)];
 //var_dump($arrayBody);
+geralog($entityBody,$_SERVER["PHP_SELF"]);
 
 $i = 0;
 
@@ -107,7 +108,9 @@ if ($contagem == 0) {
 }
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
+geralog($json_retorno, $_SERVER["PHP_SELF"]);
 //var_dump($json_retorno) . '</br>';
+
 http_response_code();
 echo $json_retorno;
 

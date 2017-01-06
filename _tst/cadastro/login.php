@@ -1,7 +1,7 @@
 <?php
 
 include "../phpfunction/header_1.php";
-
+include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
 
 include "../phpfunction/token.php";

@@ -3,7 +3,7 @@ set_time_limit( 3600 );
 ignore_user_abort( true ); 
 
 include "../phpfunction/header_1.php";
-
+include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
 
 $tabela = "contato";     //o nome de sua tabela
@@ -17,6 +17,8 @@ $entityBody = file_get_contents('php://input');
 
 $arrayBody = json_decode($entityBody, TRUE);
 //var_dump($arrayBody);
+
+geralog($entityBody,$_SERVER["PHP_SELF"]);
 
 $nome = "";
 $email = "";

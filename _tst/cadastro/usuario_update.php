@@ -1,7 +1,7 @@
 <?php
 
 include "../phpfunction/header_1.php";
-
+include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
 $tabela = "usuarios";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
@@ -11,7 +11,9 @@ $entityBody = file_get_contents('php://input');
 //$entityBody = file_get_contents('./class.txt', true);
 //$entityBody = file_get_contents('./user.txt', true);
 //var_dump($entityBody);
+geralog($entityBody, $_SERVER["PHP_SELF"]);
 $arrayBody = [json_decode($entityBody, TRUE)];
+
 //var_dump($arrayBody);
 $i = 0;
 
@@ -101,10 +103,12 @@ if (!($email == "")) {
 
     if ($usuariosID == "") { //novo_usuario
         $query = "SELECT email FROM $tabela WHERE email = '$email'";
+        geralog($query, $_SERVER["PHP_SELF"]);
         $pesquisar = mysql_query($query, $db);
         $contagem = mysql_num_rows($pesquisar);
 
         if ($contagem == 1) {
+            geralog("O email que você escolheu já está cadastrado.", $_SERVER["PHP_SELF"]);
             $retorno[$i]["status"] = "ERRO";
             $retorno[$i]["mensagem"] = "O email que você escolheu já está cadastrado.";
             $i++;
@@ -166,8 +170,10 @@ if (!($myclass == "0")) {
 
 
 //var_dump($retorno) . '</br>';
+geralog($json_retorno, $_SERVER["PHP_SELF"]);
 $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
+
 http_response_code();
 echo $json_retorno;
 
@@ -253,8 +259,10 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
 
     $querynovousuario = "INSERT INTO `$tabela` (nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, latitude, longitude, senha, perfilID, foto, termos)
                                         VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$profilePicture','$termos')";
+    geralog($querynovousuario, $_SERVER["PHP_SELF"]);
     $cadastrar = mysql_query($querynovousuario, $db);
-    $sqlerro = mysql_errno($db) . ':' . mysql_error($db) . '\\n';
+    $sqlerro = mysql_errno($db) . ':' . mysql_error($db);
+    geralog($sqlerro, $_SERVER["PHP_SELF"]);
 
     $retorno = array();
     $i = 0;
@@ -309,8 +317,10 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     $queryupdate = $queryupdate
             . "`senha` = AES_ENCRYPT('$senha','password')"
             . " WHERE usuariosID = $usuariosID";
+    geralog($queryupdate, $_SERVER["PHP_SELF"]);
 
     $cadastrar = mysql_query($queryupdate, $db);
+    geralog($cadastrar, $_SERVER["PHP_SELF"]);
     $retorno = array();
 
     $i = 0;
@@ -343,8 +353,10 @@ function novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $regis
     if ($i == 0) {
         $querynovousuario = "INSERT INTO `$tabela` (usuariosID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, minicv, disponibilidade)
                                         VALUES ($usuariosID,'$orgaoemissor','$nr_identificacao','$registro','$UF','$atuacao','$periodo','$perfilespecialista','$habilidade','$experiencia','$minicv','$disponibilidade')";
+        geralog($querynovousuario, $_SERVER["PHP_SELF"]);
 
         $cadastrar = mysql_query($querynovousuario, $db);
+        geralog($cadastrar, $_SERVER["PHP_SELF"]);
 
         if ($cadastrar == 1) {
             $retorno[$i]["status"] = "OK";
@@ -378,7 +390,9 @@ function update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_i
             . "`experiencia` = '$experiencia'   , "
             . "`minicv` = '$minicv'   , "
             . "`disponibilidade` = '$disponibilidade'  WHERE especialistasID = $especialistasID";
+    geralog($queryupdate, $_SERVER["PHP_SELF"]);
     $cadastrar = mysql_query($queryupdate, $db);
+    geralog($cadastrar, $_SERVER["PHP_SELF"]);
     $retorno = array();
     $i = 0;
 

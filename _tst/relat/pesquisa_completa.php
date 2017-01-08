@@ -1,4 +1,6 @@
 <?php
+set_time_limit( 3600 ); 
+ignore_user_abort( true ); 
 
 include "../phpfunction/header_1.php";
 
@@ -102,6 +104,13 @@ $retorno[$i]["nome"] = "Meu Local";
 $retorno[$i]["latitude"] = "$latitude";
 $retorno[$i]["longitude"] = "$longitude";
 
+if (!($i == 0)) {
+    $emailpaciente = emailpaciente($pacientesID);
+    $nome = $emailpaciente[0];
+    $email = $emailpaciente[1];
+    include '../SendGrid/BuscaCompleta.php';
+}
+
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
 //$json_locations = json_encode($locations);
@@ -129,4 +138,16 @@ function historico_item($pacientes_pesquisaID, $especialistasID) {
     $sqlhist = mysql_query($query, $db) or die($query . "<br/><br/>" . mysql_error());
 }
 
+function emailpaciente($pacientesID) {
+    include "../phpfunction/configuracao.php";
+    $db = mysql_connect($host, $login_db, $senha_db);
+    $basedados = mysql_select_db($database);
+    $query = "SELECT nome,email  FROM `pacientes` INNER JOIN usuarios ON pacientes.usuariosID=usuarios.usuariosID where pacientesID = $pacientesID";
+    $sqlemail = mysql_query($query, $db) or die($query . "<br/><br/>" . mysql_error());
+    while ($linha = mysql_fetch_array($sqlemail)) {
+        $email = $linha["email"];
+        $nome = $linha["nome"];
+    }
+    return [$nome,$email];
+}
 ?>

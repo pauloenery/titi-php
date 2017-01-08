@@ -58,6 +58,7 @@ if (is_null($arrayBody)) {
 $retorno = array();
 $return_usuario = array();
 $return_paciente = array();
+$return_classificacao = array();
 
 if (isset($email)) {
 
@@ -113,8 +114,6 @@ if (isset($email)) {
         $i++;
     }
 }
-
-
 
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);

@@ -1,6 +1,4 @@
 <?php
-set_time_limit( 3600 ); 
-ignore_user_abort( true ); 
 
 include "../phpfunction/header_1.php";
 include "../phpfunction/geralog.php";

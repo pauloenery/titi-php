@@ -170,10 +170,9 @@ if (!($myclass == "0")) {
 
 
 //var_dump($retorno) . '</br>';
-geralog($json_retorno, $_SERVER["PHP_SELF"]);
 $json_retorno = json_encode($retorno);
+geralog($json_retorno, $_SERVER["PHP_SELF"]);
 //var_dump($json_retorno) . '</br>';
-
 http_response_code();
 echo $json_retorno;
 

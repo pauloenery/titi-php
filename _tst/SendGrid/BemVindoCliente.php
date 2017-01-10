@@ -21,15 +21,9 @@ include '../cadastro/password.php';
 $sendgrid = new SendGrid($sg_username, $sg_password);
 $mail = new SendGrid\Email();
 
-//$sexo="F";
-//$nome="Cliente";
-//$email="paulo.e.nery@uol.com.br";
-
-$entityBody = file_get_contents('../email/bemvindoCliente.json', true);
 $mail_titi = file_get_contents('../email/mail-titi-cliente.html', true);
-$arrayBody = [json_decode($entityBody, TRUE)];
 
-$subject = (isset($arrayBody [0] ["subject"]) ? $arrayBody [0] ["subject"] : "");
+$subject = "Bem [Vindo] ao TITI Cuidadores Cuidadosos";
 
 if ($sexo == 'F') {
     $subject = str_replace("[Vindo]","vinda",$subject);
@@ -37,9 +31,19 @@ if ($sexo == 'F') {
     $subject = str_replace("[Vindo]","vindo",$subject);
 }
 
-$text = (isset($arrayBody [0] ["text"]) ? $arrayBody [0] ["text"] : "");
-$html = (isset($arrayBody [0] ["html"]) ? $arrayBody [0] ["html"] : "");
-$text = str_replace("[nome]",$nome,$text);
+
+$html =   'Obrigado pelo seu cadastro e interesse na nossa plataforma. <BR><BR>'
+        . 'Nos colocamos à sua inteira disposição para quaisquer dúvidas ou esclarecimentos, '
+        . 'e queremos que você continue conosco, acompanhando a evolução da plataforma que iniciou há dois meses.<BR><BR><BR>'
+        . 'Uma ótima semana para você e feliz ano novo!<BR><BR>'
+        . 'Um abraço do nosso time <BR><BR><BR> '
+        . 'TITI Cuidadores Cuidadosos<BR><BR>'
+        . 'www.titicuidadores.com.br<BR><BR><BR>'
+        . 'Curta nossa página no Facebook: https://www.facebook.com/TITICuidadores/';
+
+
+$text = 'Olá, '.$nome.', tudo bem? \n\n' . $html;
+$text = str_replace("<br>", '\n', $text);
 $mail_titi = str_replace("[nome]",$nome,$mail_titi);
 $mail_titi = str_replace("[texto]",$html,$mail_titi);
 
@@ -68,6 +72,6 @@ try {
       }
      */
 } catch (Exception $e) {
-    var_export($e);
+    //var_export($e);
 }
 ?>

@@ -3,6 +3,8 @@
 include "../phpfunction/header_1.php";
 include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
+include "../phpfunction/userfunction.php";
+
 $tabela = "usuarios";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
@@ -99,64 +101,69 @@ $return_usuario = array();
 $return_especialista = array();
 $return_classificacao = array();
 
-if (!($email == "")) {
+if (isset($email)) {
+    if (calc_idade($nascimento) < 18) {
+        $retorno[$i]["status"] = "ERRO";
+        $retorno[$i]["mensagem"] = "Olá, obrigado pelo seu interesse na nossa plataforma.\n\nPercebemos que você ainda não é maior de 18 anos, e infelizmente\nnão podemos concluir seu cadastro.\n\nAssim que você completar essa idade, será um prazer te receber aqui\nnovamente para que você possa ser um profissional cadastrado na nossa plataforma.\n\nEm caso de dúvidas, por favor entre em contato\n\nObrigado.";
+       
+    } else {
+        if ($usuariosID == "") { //novo_usuario
+            $query = "SELECT email FROM $tabela WHERE email = '$email'";
+            geralog($query, $_SERVER["PHP_SELF"]);
+            $pesquisar = mysql_query($query, $db);
+            $contagem = mysql_num_rows($pesquisar);
 
-    if ($usuariosID == "") { //novo_usuario
-        $query = "SELECT email FROM $tabela WHERE email = '$email'";
-        geralog($query, $_SERVER["PHP_SELF"]);
-        $pesquisar = mysql_query($query, $db);
-        $contagem = mysql_num_rows($pesquisar);
-
-        if ($contagem == 1) {
-            geralog("O email que você escolheu já está cadastrado.", $_SERVER["PHP_SELF"]);
-            $retorno[$i]["status"] = "ERRO";
-            $retorno[$i]["mensagem"] = "O email que você escolheu já está cadastrado.";
-            $i++;
-        }
-        if ($i > 0) {
-            http_response_code(400);
+            if ($contagem == 1) {
+                geralog("O email que você escolheu já está cadastrado.", $_SERVER["PHP_SELF"]);
+                $retorno[$i]["status"] = "ERRO";
+                $retorno[$i]["mensagem"] = "O email que você escolheu já está cadastrado.";
+                $i++;
+            }
+            if ($i > 0) {
+                http_response_code(400);
+            } else {
+                $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
+                //var_dump($return_usuario);
+                $msg_usuario = $return_usuario[0];
+                if ($msg_usuario["status"] == "OK") {
+                    $usuariosID = $return_usuario[1]["usuariosID"];
+                    $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
+                    // testar retorno especialista
+                    include '../SendGrid/BemVindoProfissional.php';
+                    http_response_code(200);
+                } else {
+                    //
+                    http_response_code(400);
+                }
+            }
         } else {
-            $return_usuario = novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos);
-            //var_dump($return_usuario);
+
+            $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha);
             $msg_usuario = $return_usuario[0];
             if ($msg_usuario["status"] == "OK") {
-                $usuariosID = $return_usuario[1]["usuariosID"];
-                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
-                // testar retorno especialista
-                include '../SendGrid/BemVindoProfissional.php';
-                http_response_code(200);
+                if ($especialistasID == "") { //novo_especialista
+                    $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
+                    // testar retorno especialista
+                    http_response_code(200);
+                } else {
+                    $return_especialista = update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
+                    // testar retorno especialista
+                    http_response_code(200);
+                }
             } else {
-                //
                 http_response_code(400);
             }
         }
-    } else {
-
-        $return_usuario = update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel, $cel, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha);
-        $msg_usuario = $return_usuario[0];
-        if ($msg_usuario["status"] == "OK") {
-            if ($especialistasID == "") { //novo_especialista
-                $return_especialista = novo_especialista($usuariosID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
-                // testar retorno especialista
-                http_response_code(200);
-            } else {
-                $return_especialista = update_especialista($usuariosID, $especialistasID, $orgaoemissor, $nr_identificacao, $registro, $UF, $atuacao, $periodo, $perfilespecialista, $habilidade, $experiencia, $minicv, $disponibilidade);
-                // testar retorno especialista
-                http_response_code(200);
-            }
-        } else {
-            http_response_code(400);
+        if (count($return_usuario) > 0) {
+            $retorno[$i]["status"] = $return_usuario[0]["status"];
+            $retorno[$i]["mensagem"] = $return_usuario[0]["mensagem"];
+            $i++;
         }
-    }
-    if (count($return_usuario) > 0) {
-        $retorno[$i]["status"] = $return_usuario[0]["status"];
-        $retorno[$i]["mensagem"] = $return_usuario[0]["mensagem"];
-        $i++;
-    }
-    if (count($return_especialista) > 0) {
-        $retorno[$i]["status"] = $return_especialista[0]["status"];
-        $retorno[$i]["mensagem"] = $return_especialista[0]["mensagem"];
-        $i++;
+        if (count($return_especialista) > 0) {
+            $retorno[$i]["status"] = $return_especialista[0]["status"];
+            $retorno[$i]["mensagem"] = $return_especialista[0]["mensagem"];
+            $i++;
+        }
     }
 }
 if (!($myclass == "0")) {

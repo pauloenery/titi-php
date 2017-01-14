@@ -101,7 +101,7 @@ $return_usuario = array();
 $return_especialista = array();
 $return_classificacao = array();
 
-if (isset($email)) {
+if ($email!='') {
     if (calc_idade($nascimento) < 18) {
         $retorno[$i]["status"] = "ERRO";
         $retorno[$i]["mensagem"] = "Olá, obrigado pelo seu interesse na nossa plataforma.\n\nPercebemos que você ainda não é maior de 18 anos, e infelizmente\nnão podemos concluir seu cadastro.\n\nAssim que você completar essa idade, será um prazer te receber aqui\nnovamente para que você possa ser um profissional cadastrado na nossa plataforma.\n\nEm caso de dúvidas, por favor entre em contato\n\nObrigado.";

@@ -1,6 +1,7 @@
 <?php
-set_time_limit( 3600 ); 
-ignore_user_abort( true ); 
+
+set_time_limit(3600);
+ignore_user_abort(true);
 
 include "../phpfunction/header_1.php";
 
@@ -73,11 +74,11 @@ $retorno = array();
 $locations = array();
 $i = 0;
 
+if ($i == 0) {
+    $pacientes_pesquisaID = historico($pacientesID, $cep, $atuacao);
+}
 
 while ($dados = mysql_fetch_array($sql)) {
-    if ($i == 0) {
-        $pacientes_pesquisaID = historico($pacientesID, $cep, $atuacao);
-    }
 
     $retorno[$i]["nome"] = $dados["nome"];
     $retorno[$i]["latitude"] = $dados["latitude"];
@@ -148,6 +149,7 @@ function emailpaciente($pacientesID) {
         $email = $linha["email"];
         $nome = $linha["nome"];
     }
-    return [$nome,$email];
+    return [$nome, $email];
 }
+
 ?>

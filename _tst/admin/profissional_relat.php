@@ -29,7 +29,7 @@ and open the template in the editor.
         $param = "";
         $inicial = $pg * $numreg; //######### FIM dados Paginação		
 
-        $querytabela = "SELECT usuarios.usuariosID, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, especialistasID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, classificacao, total, disponibilidade, ativo FROM usuarios LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID WHERE perfilID = 2";
+        $querytabela = "SELECT usuarios.usuariosID, usuarios.data, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, especialistasID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, classificacao, total, disponibilidade, ativo FROM usuarios LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID WHERE perfilID = 2";
 
         // Faz o Select pegando o registro inicial até a quantidade de registros para página	
 
@@ -44,6 +44,7 @@ and open the template in the editor.
         echo "<tr>";
         echo "<td width='200px'>" . 'nome' . "</td>";
         echo "<td>" . 'ativo' . "</td>";
+        echo "<td>" . 'Cadastrado' . "</td>";
         echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'sexo' . "</td>";
         echo "<td>" . 'tel' . "</td>";
@@ -90,6 +91,7 @@ and open the template in the editor.
             . "</BUTTON>"
             . "</td>";
 
+            echo "<td>" . $aux['data'] . "</td>";
             echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['sexo'] . "</td>";
             echo "<td>" . $aux['tel'] . "</td>";

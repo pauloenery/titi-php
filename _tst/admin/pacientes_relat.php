@@ -29,7 +29,7 @@ and open the template in the editor.
         $param = "";
         $inicial = $pg * $numreg; //######### FIM dados Paginação		
 
-        $querytabela = "SELECT usuarios.usuariosID, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, pacientesID, classificacao, total FROM usuarios LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID WHERE perfilID = 3";
+        $querytabela = "SELECT usuarios.usuariosID, usuarios.data, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, pacientesID, classificacao, total FROM usuarios LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID WHERE perfilID = 3";
 
         // Faz o Select pegando o registro inicial até a quantidade de registros para página	
 
@@ -43,6 +43,7 @@ and open the template in the editor.
         echo "<table border='1' width='300%' >";
         echo "<tr>";
         echo "<td width='200px'>" . 'nome' . "</td>";
+        echo "<td>" . 'Cadastrado' . "</td>";
         echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'sexo' . "</td>";
         echo "<td>" . 'tel' . "</td>";
@@ -55,7 +56,6 @@ and open the template in the editor.
         echo "<td>" . 'cep' . "</td>";
         echo "<td>" . 'cidade' . "</td>";
         echo "<td>" . 'estado' . "</td>";
-        echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'termos' . "</td>";
         echo "<td>" . 'pacientesID' . "</td>";
         echo "<td>" . 'classificacao' . "</td>";
@@ -66,6 +66,7 @@ and open the template in the editor.
             $usuariosID = $aux['usuariosID'];
             echo "<tr>";
             echo "<td>" . $aux['nome'] . "</td>";
+            echo "<td>" . $aux['data'] . "</td>";
             echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['sexo'] . "</td>";
             echo "<td>" . $aux['tel'] . "</td>";
@@ -78,7 +79,6 @@ and open the template in the editor.
             echo "<td>" . $aux['cep'] . "</td>";
             echo "<td>" . $aux['cidade'] . "</td>";
             echo "<td>" . $aux['estado'] . "</td>";
-            echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['termos'] . "</td>";
             echo "<td>"
             . "<BUTTON onclick="

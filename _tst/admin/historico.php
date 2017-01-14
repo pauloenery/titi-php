@@ -28,7 +28,10 @@ $queryhistorico = "
         especialistas.experiencia,            
         especialistas.minicv,            
 	especialistas_classificacao.classificacao as myclass,
-        especialistas_classificacao.comentario
+        especialistas_classificacao.comentario,
+        pacientes_pesquisa.cep,
+        pacientes_pesquisa.atuacao as atuacao_filtro,
+        pacientes_pesquisa.data
    FROM pacientes 
 LEFT JOIN pacientes_pesquisa      
        ON pacientes.pacientesID=pacientes_pesquisa.pacientesID 
@@ -50,6 +53,9 @@ $retorno = array();
 $i = 0;
 while ($dados = mysql_fetch_array($sql)) {
 
+    $retorno[$i]["cep"] = $dados["cep"];
+    $retorno[$i]["atuacao_filtro"] = cargo($dados["atuacao_filtro"]);
+    $retorno[$i]["data"] = $dados["data"];
     $retorno[$i]["nome"] = $dados["nome"];
     $retorno[$i]["tel"] = $dados["tel"];
     $retorno[$i]["cel"] = $dados["cel"];

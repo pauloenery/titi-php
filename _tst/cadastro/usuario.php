@@ -99,7 +99,6 @@ while ($linha = mysql_fetch_array($resultado)) {
     $retorno[$i]["experiencia"] = $linha["experiencia"];
     $retorno[$i]["minicv"] = $linha["minicv"];
     $retorno[$i]["disponibilidade"] = $linha["disponibilidade"];
-    //$retorno[$i]["ativo"]               = $linha["ativo"];
     http_response_code(200);
 }
 if ($contagem == 0) {
@@ -108,7 +107,8 @@ if ($contagem == 0) {
 }
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
-geralog($json_retorno, $_SERVER["PHP_SELF"]);
+geralog("UsuarioID:".$usuariosID, $_SERVER["PHP_SELF"]);
+
 //var_dump($json_retorno) . '</br>';
 
 http_response_code();

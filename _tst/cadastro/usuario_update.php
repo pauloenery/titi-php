@@ -13,7 +13,7 @@ $entityBody = file_get_contents('php://input');
 //$entityBody = file_get_contents('./class.txt', true);
 //$entityBody = file_get_contents('./user.txt', true);
 //var_dump($entityBody);
-geralog($entityBody, $_SERVER["PHP_SELF"]);
+//geralog($entityBody, $_SERVER["PHP_SELF"]);
 $arrayBody = [json_decode($entityBody, TRUE)];
 
 //var_dump($arrayBody);
@@ -178,7 +178,7 @@ if (!($myclass == "0")) {
 
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
-geralog($json_retorno, $_SERVER["PHP_SELF"]);
+//geralog($json_retorno, $_SERVER["PHP_SELF"]);
 //var_dump($json_retorno) . '</br>';
 http_response_code();
 echo $json_retorno;
@@ -265,7 +265,7 @@ function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, 
 
     $querynovousuario = "INSERT INTO `$tabela` (nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, latitude, longitude, senha, perfilID, foto, termos)
                                         VALUES ('$nome','$nascimento','$sexo','$tel','$cel','$email','$cpf_cnpj','$rg','$endereco','$bairro','$cep','$cidade','$estado','$latitude','$longitude',AES_ENCRYPT('$senha','password'),$perfilID,'$profilePicture','$termos')";
-    geralog($querynovousuario, $_SERVER["PHP_SELF"]);
+    geralog('INSERT email: ' . $email, $_SERVER["PHP_SELF"]);
     $cadastrar = mysql_query($querynovousuario, $db);
     $sqlerro = mysql_errno($db) . ':' . mysql_error($db);
     geralog($sqlerro, $_SERVER["PHP_SELF"]);
@@ -323,7 +323,7 @@ function update_usuario($usuariosID, $perfilID, $nome, $nascimento, $sexo, $tel,
     $queryupdate = $queryupdate
             . "`senha` = AES_ENCRYPT('$senha','password')"
             . " WHERE usuariosID = $usuariosID";
-    geralog($queryupdate, $_SERVER["PHP_SELF"]);
+    //geralog($queryupdate, $_SERVER["PHP_SELF"]);
 
     $cadastrar = mysql_query($queryupdate, $db);
     geralog($cadastrar, $_SERVER["PHP_SELF"]);

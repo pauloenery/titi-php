@@ -1,5 +1,4 @@
 <?php
-
 set_time_limit(3600);
 ignore_user_abort(true);
 
@@ -114,12 +113,8 @@ if (!($i == 0)) {
 
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
-//$json_locations = json_encode($locations);
-//var_dump($json_retorno) . '</br>';
 echo $json_retorno;
-
 //echo $json_locations;
-
 
 function historico($pacientesID, $cep, $atuacao) {
     include "../phpfunction/configuracao.php";
@@ -151,5 +146,4 @@ function emailpaciente($pacientesID) {
     }
     return [$nome, $email];
 }
-
 ?>

@@ -41,15 +41,19 @@ function cargo($cargo) {
     if ($cargo == "1") {
         return 'Auxiliar/Técnico enfermagem';
     } else if ($cargo == "2") {
-        return 'Enfermeiro';
+        return 'Enfermeiro Cuidador';
     } else if ($cargo == "3") {
         return 'Cuidador';
     } else if ($cargo == "4") {
-        return 'Fisioterapeuta';
+        return 'Fisioterapeuta Cuidador';
     } else if ($cargo == "5") {
         return 'Fonoaudiólogo';
     } else if ($cargo == "6") {
         return 'Educador Físico';
+    } else if ($cargo == "7") {
+        return 'Assessor Familiar Cuidador';
+    } else if ($cargo == "8") {
+        return 'Acompanhante Cuidador';
     } else {
         return 'Não informado';
     }

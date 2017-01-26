@@ -23,7 +23,9 @@ $mail = new SendGrid\Email();
 $subject = "Busca Profissional";
 
 $mail_titi = file_get_contents('../email/mail-titi-busca.html', true);
-$html = 'Identificamos que sua pesquisa retornou ';
+$html = 'CEP: ' . $cep  . '<br>'
+      . 'Profissional: ' . cargo($atuacao) . '<br><br>'
+      . 'Identificamos que a pesquisa acima retornou ';
 if ($i>1) {
     $html .= 'os profissionais: ';
 }

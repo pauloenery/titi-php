@@ -47,7 +47,7 @@ function cargo($cargo) {
     } else if ($cargo == "4") {
         return 'Fisioterapeuta Cuidador';
     } else if ($cargo == "5") {
-        return 'Fonoaudiólogo';
+        return 'Terapeuta Ocupacional';
     } else if ($cargo == "6") {
         return 'Educador Físico';
     } else if ($cargo == "7") {

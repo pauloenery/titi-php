@@ -12,7 +12,7 @@ $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
 $entityBody = file_get_contents('php://input');
-//$entityBody = '{"email":"paulo.e.nery@uol.com.br","senha":"1234","perfilID":"2"}';
+//$entityBody = '{"email":"paulo.nery@uol.com.br","senha":"1234","perfilID":"3"}';
 
 $arrayBody = json_decode($entityBody, TRUE);
 
@@ -44,12 +44,17 @@ $query = "SELECT
         WHERE email='$email' AND senha=AES_ENCRYPT('$senha','password') and perfilID=$perfilID";
 //echo $query;
 
-$resultado = mysql_query($query, $db)  or die($query) . mysql_error();
-$contagem = mysql_num_rows($resultado) or die($query) . mysql_error(); 
+$resultado = mysql_query($query, $db);  //or die($query) . mysql_error();
+$contagem = mysql_num_rows($resultado); //or die($query) . mysql_error(); 
+
 $retorno = array();
+$errorcode = 0;
 if ($contagem == 0) {
-    $retorno[$i]["mensagem"] = "Dados de Login inválido";
-    http_response_code(400);
+    $retorno[0]["mensagem"] = "Dados de Login inválido";
+    geralog('email=' . $email, $_SERVER["PHP_SELF"]);
+    geralog('senha=' . $senha, $_SERVER["PHP_SELF"]);
+    $errorcode = 400;
+    header('http/1.0 400 Bad Request');
 } else {
     $i = 0;
     $usuariosID = '';
@@ -60,17 +65,20 @@ if ($contagem == 0) {
         $retorno[$i]["termos"] = $linha["termos"];
         $retorno[$i]["especialistasID"] = $linha["especialistasID"];
         $retorno[$i]["pacientesID"] = $linha["pacientesID"];
-        http_response_code(200);
-    }
+        $errorcode = 200;
+}
     $token = auth($usuariosID, perfil($perfilID));
     $retorno[$i]["token"] = $token["token"];
     $retorno[$i]["userData"] = $token["userData"];
+    geralog("UsuarioID:" . $usuariosID, $_SERVER["PHP_SELF"]);
 }
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
-http_response_code();
+geralog($json_retorno, $_SERVER["PHP_SELF"]);
 echo $json_retorno;
+http_response_code($errorcode);
+http_response_code();
 
 function perfil($perfilID) {
     if ($perfilID == 1) {

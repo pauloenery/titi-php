@@ -9,6 +9,18 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
+    <style>
+/* Sortable tables */
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}
+
+    </style>
+    <script src="sorttable.js"></script>
+
     <body>
         <?php
         $PHP_SELF = "../admin/pacientes_relat.php";
@@ -21,12 +33,18 @@ and open the template in the editor.
         //######### INICIO Paginação	
         $numreg = 10; // Quantos registros por página vai ser mostrado	
         $pg = filter_input(INPUT_GET, 'pg', FILTER_SANITIZE_ENCODED);
+        $max = filter_input(INPUT_GET, 'max', FILTER_SANITIZE_ENCODED);
 
         if (!isset($pg)) {
             $pg = 0;
         }
-
-        $param = "";
+        if (!isset($max)) {
+            $max = $numreg;
+        }
+        if ($max > 0) {
+            $numreg = $max;
+        }
+        $param = "&max=" . $max;
         $inicial = $pg * $numreg; //######### FIM dados Paginação		
 
         $querytabela = "SELECT usuarios.usuariosID, usuarios.data, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, pacientesID, classificacao, total FROM usuarios LEFT JOIN pacientes ON pacientes.usuariosID=usuarios.usuariosID WHERE perfilID = 3";
@@ -40,7 +58,7 @@ and open the template in the editor.
         //echo $querytabela . "<BR>";
         //echo $quantreg . "<BR>";
 
-        echo "<table border='1' width='300%' >";
+        echo "<table border='1' width='300%' class='sortable'  >";
         echo "<tr>";
         echo "<td width='200px'>" . 'nome' . "</td>";
         echo "<td>" . 'Cadastrado' . "</td>";

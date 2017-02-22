@@ -42,7 +42,8 @@ LEFT JOIN usuarios
 LEFT JOIN especialistas_classificacao 
        ON pacientes.pacientesID=especialistas_classificacao.pacientesID AND 
           especialistas.especialistasID=especialistas_classificacao.especialistasID
-    where pacientes.pacientesID=$pacientesID";
+    where pacientes.pacientesID=$pacientesID "
+        . "ORDER BY especialistas.classificacao DESC , especialistas.total DESC";
 
 $sql = mysql_query($queryhistorico, $db) or die($queryhistorico . "<br/><br/>" . mysql_error());
 //$aux = mysql_fetch_array($sql);

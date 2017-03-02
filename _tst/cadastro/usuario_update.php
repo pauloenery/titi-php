@@ -101,11 +101,10 @@ $return_usuario = array();
 $return_especialista = array();
 $return_classificacao = array();
 
-if ($email!='') {
+if ($email != '') {
     if (calc_idade($nascimento) < 18) {
         $retorno[$i]["status"] = "ERRO";
         $retorno[$i]["mensagem"] = "Olá, obrigado pelo seu interesse na nossa plataforma.\n\nPercebemos que você ainda não é maior de 18 anos, e infelizmente\nnão podemos concluir seu cadastro.\n\nAssim que você completar essa idade, será um prazer te receber aqui\nnovamente para que você possa ser um profissional cadastrado na nossa plataforma.\n\nEm caso de dúvidas, por favor entre em contato\n\nObrigado.";
-       
     } else {
         if ($usuariosID == "") { //novo_usuario
             $query = "SELECT email FROM $tabela WHERE email = '$email'";
@@ -172,6 +171,13 @@ if (!($myclass == "0")) {
         $retorno[$i]["status"] = $return_especialista[0]["status"];
         $retorno[$i]["mensagem"] = $return_especialista[0]["mensagem"];
         $i++;
+        $nomeespecialista = '';
+        $emailespecialista = '';
+        especialistas($especialistasID);
+        $nomepaciente = '';
+        pacientes($pacientesID);
+        $nome=$nomepaciente;
+        include '../SendGrid/Evaluate.php';
     }
 }
 
@@ -250,6 +256,49 @@ function update_classificacao($especialistasID, $pacientesID, $myclass, $comenta
         $i++;
     }
     return $retorno;
+}
+
+Function especialistas($especialistasID) {
+    global $db, $basedados;
+    global $nomeespecialista, $emailespecialista;
+
+    $queryselect = "
+        SELECT usuarios.nome as nomeespecialista,
+               usuarios.email as emailespecialista
+        FROM usuarios 
+        INNER JOIN especialistas
+        ON usuarios.usuariosID=especialistas.usuariosID
+        where especialistas.especialistasID=$especialistasID";
+    $resultselect = mysql_query($queryselect, $db) or die($queryselect . "<br/><br/>" . mysql_error());
+    $nomeespecialista = '';
+    $emailespecialista = '';
+    while ($linha = mysql_fetch_array($resultselect)) {
+        $nomeespecialista = $linha["nomeespecialista"];
+        $emailespecialista = $linha["emailespecialista"];
+    }
+    //echo 'mensagem 1: ' . $pacientesID;
+
+    return (TRUE);
+}
+
+Function pacientes($pacientesID) {
+    global $db, $basedados;
+    global $nomepaciente;
+
+    $queryselect = "
+        SELECT usuarios.nome as nomepaciente
+        FROM usuarios 
+        INNER JOIN pacientes
+        ON usuarios.usuariosID=pacientes.usuariosID
+        where pacientes.pacientesID=$pacientesID";
+    $resultselect = mysql_query($queryselect, $db) or die($queryselect . "<br/><br/>" . mysql_error());
+    $nomepaciente = '';
+    while ($linha = mysql_fetch_array($resultselect)) {
+        $nomepaciente = $linha["nomepaciente"];
+    }
+    //echo 'mensagem 1: ' . $pacientesID;
+
+    return (TRUE);
 }
 
 function novo_usuario($perfilID, $nome, $nascimento, $sexo, $tel, $cel, $email, $profilePicture, $cpf_cnpj, $rg, $endereco, $bairro, $cep, $cidade, $estado, $senha, $termos) {

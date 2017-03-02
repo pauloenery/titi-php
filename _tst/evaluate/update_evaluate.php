@@ -4,6 +4,7 @@
 //include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
 include "../phpfunction/userfunction.php";
+include "../phpfunction/base.php";
 
 $tabela = "usuarios";     //o nome de sua tabela
 $db = mysql_connect($host, $login_db, $senha_db);
@@ -33,8 +34,13 @@ if (usuariosID($email)) {
     IF ($pacientesID != 0) {
         update_classificacao($especialistasID, $pacientesID, $myclass, $comentario);
     }
+    $nomeespecialista = '';
+    $emailespecialista = '';
+    especialistas($especialistasID);
+
+    include '../SendGrid/Evaluate.php';
     echo("<script>alert('Obrigado por colaborar com a sua avaliação ');</script>");
-    echo("<script>location.href = 'http://titicuidadores.com.br';</script>");
+    echo("<script>location.href = '" .$backendUrl."';</script>");
 }
 
 Function usuariosID($email) {
@@ -50,6 +56,29 @@ Function usuariosID($email) {
     } else {
         return (FALSE);
     }
+}
+
+Function especialistas($especialistasID) {
+    global $db, $basedados;
+    global $nomeespecialista, $emailespecialista;
+
+    $queryselect = "
+        SELECT usuarios.nome as nomeespecialista,
+               usuarios.email as emailespecialista
+        FROM usuarios 
+        INNER JOIN especialistas
+        ON usuarios.usuariosID=especialistas.usuariosID
+        where especialistas.especialistasID=$especialistasID";
+    $resultselect = mysql_query($queryselect, $db) or die($queryselect . "<br/><br/>" . mysql_error());
+    $nomeespecialista = '';
+    $emailespecialista = '';
+    while ($linha = mysql_fetch_array($resultselect)) {
+        $nomeespecialista = $linha["nomeespecialista"];
+        $emailespecialista = $linha["emailespecialista"];
+    }
+    //echo 'mensagem 1: ' . $pacientesID;
+
+    return (TRUE);
 }
 
 Function pacientesID($email) {

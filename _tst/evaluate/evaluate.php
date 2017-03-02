@@ -107,7 +107,7 @@
 
 						<div class="w3-col m2"></div>
 
-            <div id="content" class="w3-card-4 w3-margin w3-col m8" style="padding: 0px;">
+            <div id="content" class="w3-card-4 w3-col m8" style="padding: 0px;">
 								<header class="w3-container w3-center w3-teal">
 								  <h1>Classificação do profissional</h1>
 								</header>
@@ -122,19 +122,22 @@
 											<h4>Dados do profissional</h4>
 										</div>
 										<div class="w3-row question">
-											<span class="w3-col m4">* Profissional avaliado</span>
-											<span class="w3-col m1"></span>
-											<select class="w3-select w3-col m6" name="especialistasID" id="especialistasID" required>
+											<span class="w3-col m4 s4">*Profissional</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<select class="w3-select w3-col m6 s7"
+															name="especialistasID"
+															id="especialistasID"
+															required>
 													<option value="" disabled selected>Selecione</option>
 													<?php profissionais(); ?>
 											</select>
 										</div>
 
 										<div class="w3-row question">
-											<span class="w3-col m4">* Nível de satisfação </span>
-											<span class="w3-col m1"></span>
+											<span class="w3-col m4 s4">*Avaliação </span>
+											<span class="w3-col m1 w3-hide-small"></span>
 
-											<div class="rating rating-wrapper w3-col m4">
+											<div class="rating rating-wrapper w3-col m4 s8">
 												<input type="radio" id="star5" name="rating" value="5" />
 												<label class="full" for="star5" title="Muito satisfeito"></label>
 
@@ -153,9 +156,9 @@
 										</div>
 
 										<div class="w3-row question">
-											<span class="w3-col m4">Observações</span>
-											<span class="w3-col m1"></span>
-											<textarea class="w3-col m6 w3-input" rows="4" cols="50" size="50" maxlength="200" name="comentario" id="comentario"></textarea>
+											<span class="w3-col m4 s4">Observações</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<textarea class="w3-col m6 s7 w3-input" rows="4" cols="50" size="50" maxlength="200" name="comentario" id="comentario"></textarea>
 										</div>
 
 										<hr />
@@ -165,15 +168,15 @@
 										</div>
 
 										<div class="w3-row question">
-											<span class="w3-col m4">* Nome</span>
-											<span class="w3-col m1"></span>
-											<input class="w3-col m6 w3-input" type="text" size="50" maxlength="50" name="nomepaciente" id="nomepaciente" required/>
+											<span class="w3-col m4 s4">* Nome</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<input class="w3-col m6 s7 w3-input" type="text" size="50" maxlength="50" name="nomepaciente" id="nomepaciente" required/>
 										</div>
 
 										<div class="w3-row question">
-											<span class="w3-col m4">* E-mail</span>
-											<span class="w3-col m1"></span>
-											<input class="w3-col m6 w3-input" type="email" size="50" maxlength="50" name="emailpaciente" id="emailpaciente" required/>
+											<span class="w3-col m4 s4">* E-mail</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<input class="w3-col m6 s7 w3-input" type="email" size="50" maxlength="50" name="emailpaciente" id="emailpaciente" required/>
 										</div>
 
 										<hr />

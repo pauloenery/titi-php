@@ -30,6 +30,7 @@ body {
 .rating {
 	font-size: 2.3em;
   direction: rtl;
+	padding-top: 0.2em !important;
 }
 
 .rating > input {
@@ -39,7 +40,7 @@ body {
 .rating > label:before {
   display: inline-block;
 	position: relative;
-  width: 1.1em;
+	width: 1.1em;
 	content: "\2605";
 	cursor: pointer;
 }
@@ -60,4 +61,17 @@ body {
 .tt-orange {
 	background-color: #f3ba3c;
 	box-shadow: 3px 3px 15px #888888;
+}
+
+@media (max-width: 768px) {
+  .rating > label:before {
+		width: 0.7em;
+	}
+	h1 {
+		font-size: 8vw !important;
+	}
+	h4 {
+		font-size: 6vw !important;
+	}
+
 }

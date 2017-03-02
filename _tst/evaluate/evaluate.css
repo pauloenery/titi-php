@@ -1,0 +1,63 @@
+body {
+	background-image: url('../assets/images/bg-health.jpg');
+	font-family: 'Roboto', sans-serif !important;
+}
+
+#content {
+	color: #1C2743 !important;
+	background-color: white !important;
+}
+
+.section {
+	margin-left: 3em;
+}
+
+.question {
+	margin-top: 2em;
+}
+
+.question > span {
+	font-size: 1.2em;
+	text-align: right;
+}
+
+.rating-wrapper {
+	display: inline-block;
+	margin-top: -0.5em;
+	margin-left: -1.8em;
+}
+
+.rating {
+	font-size: 2.3em;
+  direction: rtl;
+}
+
+.rating > input {
+	display: none;
+}
+
+.rating > label:before {
+  display: inline-block;
+	position: relative;
+  width: 1.1em;
+	content: "\2605";
+	cursor: pointer;
+}
+
+.rating > label {
+  color: #ddd;
+}
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+.tt-orange {
+	background-color: #f3ba3c;
+	box-shadow: 3px 3px 15px #888888;
+}

@@ -135,19 +135,19 @@
 											<span class="w3-col m1"></span>
 
 											<div class="rating rating-wrapper w3-col m4">
-												<input type="radio" id="star5" name="rating" value="5" />
+												<input type="radio" id="star5" name="myclass" value="5" />
 												<label class="full" for="star5" title="Muito satisfeito"></label>
 
-												<input type="radio" id="star4" name="rating" value="4" />
+												<input type="radio" id="star4" name="myclass" value="4" />
 												<label class="full" for="star4" title="Satisfeito"></label>
 
-												<input type="radio" id="star3" name="rating" value="3" />
+												<input type="radio" id="star3" name="myclass" value="3" />
 												<label class="full" for="star3" title="Parcialmente"></label>
 
-												<input type="radio" id="star2" name="rating" value="2" />
+												<input type="radio" id="star2" name="myclass" value="2" />
 												<label class="full" for="star2" title="Insatisfeito"></label>
 
-												<input type="radio" id="star1" name="rating" value="1" />
+												<input type="radio" id="star1" name="myclass" value="1" />
 												<label class="full" for="star1" title="Muito insatisfeito"></label>
 											</div>
 										</div>

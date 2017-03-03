@@ -19,8 +19,8 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Oleo+Script:400,700&subset=latin-ext" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <link rel="stylesheet" href="t3.css" />
+				<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+				<link rel="stylesheet" href="t3.css" />
         <link rel="stylesheet" href="evaluate.css" />
         <script>
             (function (i, s, o, g, r, a, m) {
@@ -45,16 +45,16 @@
         <script>
             function valida()
             {
-                if (document.evaluate.especialistasID.value === "0" || document.evaluate.myclass.value === "" || document.evaluate.nomepaciente.value === "" || document.evaluate.emailpaciente.value === "")
+                if (document.evaluate.especialistasID.value === "0" || document.evaluate.rating.value === "" || document.evaluate.nomepaciente.value === "" || document.evaluate.emailpaciente.value === "")
                 {
                     alert("Todos os campos com asterisco são de preenchimento obrigatório!");
                     return(false);
                 }
                 else
                 {
-                    if (checarEmail()) {
+                    if (checarEmail()){
                         return(true)
-                    } else {
+                    }else{
                         return(false)
                     }
                 }
@@ -74,7 +74,7 @@
                     //document.forms[0].emailpaciente.select();
                     //document.forms[0].emailpaciente.focus();
                     return false;
-                } else {
+                }else{
                     return true;
                 }
             }
@@ -89,8 +89,8 @@
                         <td width="1%"></td>
                         <td width="4%">
                             <a href="http://titicuidadores.com.br">
-                                <img class="left logo1 tt-lo" width="40px" src="../assets/images/new-logo-titi.png" alt="" style="margin-top:8px;margin-left:10px;"/>
-                            </a>
+                              <img class="left logo1 tt-lo" width="40px" src="../assets/images/new-logo-titi.png" alt="" style="margin-top:8px;margin-left:10px;"/>
+														</a>
                         </td>
                         <td width="50%">
                             <h4  style=" font-size:22px;   line-height: 15px; padding-top: 5px; color: #ffffff">
@@ -105,86 +105,86 @@
                 </table>
             </div>
 
-            <div class="w3-col m2"></div>
+						<div class="w3-col m2"></div>
 
             <div id="content" class="w3-card-4 w3-col m8" style="padding: 0px;">
-                <header class="w3-container w3-center w3-teal">
-                    <h1>Classificação do profissional</h1>
-                </header>
+								<header class="w3-container w3-center w3-teal">
+								  <h1>Classificação do profissional</h1>
+								</header>
 
                 <p class="w3-center">É simples! Você levará apenas 2 minutos para completar a avaliação do profissional.</p>
-                <hr />
+								<hr />
                 <form action="update_evaluate.php"
-                      name="evaluate"
-                      id="evaluate"
-                      onSubmit="return valida();">
-                    <div class="w3-row section">
-                        <h4>Dados do profissional</h4>
-                    </div>
-                    <div class="w3-row question">
-                        <span class="w3-col m4 s4">*Profissional</span>
-                        <span class="w3-col m1 w3-hide-small"></span>
-                        <select class="w3-select w3-col m6 s7"
-                                name="especialistasID"
-                                id="especialistasID"
-                                required>
-                            <option value="" disabled selected>Selecione</option>
-                            <?php profissionais(); ?>
-                        </select>
-                    </div>
+											name="evaluate"
+											id="evaluate"
+											onSubmit="return valida();">
+										<div class="w3-row section">
+											<h4>Dados do profissional</h4>
+										</div>
+										<div class="w3-row question">
+											<span class="w3-col m4 s4">*Profissional</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<select class="w3-select w3-col m6 s7"
+															name="especialistasID"
+															id="especialistasID"
+															required>
+													<option value="" disabled selected>Selecione</option>
+													<?php profissionais(); ?>
+											</select>
+										</div>
 
-                    <div class="w3-row question">
-                        <span class="w3-col m4 s4">*Avaliação </span>
-                        <span class="w3-col m1 w3-hide-small"></span>
+										<div class="w3-row question">
+											<span class="w3-col m4 s4">*Avaliação </span>
+											<span class="w3-col m1 w3-hide-small"></span>
 
-                        <div class="rating rating-wrapper w3-col m4 s8">
-                            <input type="radio" id="star5" name="rating" value="5" />
-                            <label class="full" for="star5" title="Muito satisfeito"></label>
+											<div class="rating rating-wrapper w3-col m4 s8">
+												<input type="radio" id="star5" name="rating" value="5" />
+												<label class="full" for="star5" title="Muito satisfeito"></label>
 
-                            <input type="radio" id="star4" name="rating" value="4" />
-                            <label class="full" for="star4" title="Satisfeito"></label>
+												<input type="radio" id="star4" name="rating" value="4" />
+												<label class="full" for="star4" title="Satisfeito"></label>
 
-                            <input type="radio" id="star3" name="rating" value="3" />
-                            <label class="full" for="star3" title="Parcialmente"></label>
+												<input type="radio" id="star3" name="rating" value="3" />
+												<label class="full" for="star3" title="Parcialmente"></label>
 
-                            <input type="radio" id="star2" name="rating" value="2" />
-                            <label class="full" for="star2" title="Insatisfeito"></label>
+												<input type="radio" id="star2" name="rating" value="2" />
+												<label class="full" for="star2" title="Insatisfeito"></label>
 
-                            <input type="radio" id="star1" name="rating" value="1" />
-                            <label class="full" for="star1" title="Muito insatisfeito"></label>
-                        </div>
-                    </div>
+												<input type="radio" id="star1" name="rating" value="1" />
+												<label class="full" for="star1" title="Muito insatisfeito"></label>
+											</div>
+										</div>
 
-                    <div class="w3-row question">
-                        <span class="w3-col m4 s4">Observações</span>
-                        <span class="w3-col m1 w3-hide-small"></span>
-                        <textarea class="w3-col m6 s7 w3-input" rows="4" cols="50" size="50" maxlength="200" name="comentario" id="comentario"></textarea>
-                    </div>
+										<div class="w3-row question">
+											<span class="w3-col m4 s4">Observações</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<textarea class="w3-col m6 s7 w3-input" rows="4" cols="50" size="50" maxlength="200" name="comentario" id="comentario"></textarea>
+										</div>
 
-                    <hr />
+										<hr />
 
-                    <div class="w3-row section">
-                        <h4>Seus dados</h4>
-                    </div>
+										<div class="w3-row section">
+											<h4>Seus dados</h4>
+										</div>
 
-                    <div class="w3-row question">
-                        <span class="w3-col m4 s4">* Nome</span>
-                        <span class="w3-col m1 w3-hide-small"></span>
-                        <input class="w3-col m6 s7 w3-input" type="text" size="50" maxlength="50" name="nomepaciente" id="nomepaciente" required/>
-                    </div>
+										<div class="w3-row question">
+											<span class="w3-col m4 s4">* Nome</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<input class="w3-col m6 s7 w3-input" type="text" size="50" maxlength="50" name="nomepaciente" id="nomepaciente" required/>
+										</div>
 
-                    <div class="w3-row question">
-                        <span class="w3-col m4 s4">* E-mail</span>
-                        <span class="w3-col m1 w3-hide-small"></span>
-                        <input class="w3-col m6 s7 w3-input" type="email" size="50" maxlength="50" name="emailpaciente" id="emailpaciente" required/>
-                    </div>
+										<div class="w3-row question">
+											<span class="w3-col m4 s4">* E-mail</span>
+											<span class="w3-col m1 w3-hide-small"></span>
+											<input class="w3-col m6 s7 w3-input" type="email" size="50" maxlength="50" name="emailpaciente" id="emailpaciente" required/>
+										</div>
 
-                    <hr />
-                    <div class="w3-row question w3-center">
-                        <input class="w3-btn w3-ripple tt-orange" type="submit" name="Enviar" value="Enviar" style="width: 15em;"/>
-                    </div>
+										<hr />
+										<div class="w3-row question w3-center">
+											<input class="w3-btn w3-ripple tt-orange" type="submit" name="Enviar" value="Enviar" style="width: 15em;"/>
+										</div>
 
-                    <br>
+										<br>
 
                 </form>
             </div>
@@ -194,6 +194,8 @@
 <?php
 
 Function profissionais() {
+	echo'<option value="0">Escolha um profissional...</option>';
+	return;
     include "../phpfunction/configuracao.php";
     $db = mysql_connect($host, $login_db, $senha_db);
     $basedados = mysql_select_db($database);

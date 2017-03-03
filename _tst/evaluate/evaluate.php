@@ -194,7 +194,6 @@
 <?php
 
 Function profissionais() {
-    echo'<option value="0">Escolha um profissional...</option>';
     include "../phpfunction/configuracao.php";
     $db = mysql_connect($host, $login_db, $senha_db);
     $basedados = mysql_select_db($database);

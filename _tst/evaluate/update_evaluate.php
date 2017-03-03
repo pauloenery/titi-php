@@ -13,7 +13,7 @@ $basedados = mysql_select_db($database);
 $especialistasID = $_REQUEST ["especialistasID"];
 $nome = $_REQUEST ["nomepaciente"];
 $email = $_REQUEST ["emailpaciente"];
-$myclass = (isset($_REQUEST ["myclass"]) ? $_REQUEST ["myclass"] : 0);
+$myclass = (isset($_REQUEST ["rating"]) ? $_REQUEST ["rating"] : 0);
 $comentario = $_REQUEST ["comentario"];
 
 //echo 'especialistasID: ' . $especialistasID . ' - ';

@@ -137,7 +137,7 @@
                         <span class="w3-col m4 s4">*Avaliação </span>
                         <span class="w3-col m1 w3-hide-small"></span>
 
-                        <div class="rating rating-wrapper w3-col m4 s8">
+                        <div class="rating rating-wrapper w3-col m4 s12">
                             <input type="radio" id="star5" name="rating" value="5" />
                             <label class="full" for="star5" title="Muito satisfeito"></label>
 

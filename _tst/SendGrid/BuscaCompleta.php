@@ -48,7 +48,7 @@ else {
 }
 $html .= ', ou se podemos te auxiliar de alguma outra maneira, por favor.<br><br>';
 $html .= 'Nos colocamos à sua inteira disposição para quaisquer dúvidas ou esclarecimentos.<br><br>';
-$html .= 'Uma ótima semana para você e feliz ano novo!<br><br>';
+$html .= 'Uma ótima semana para você!<br><br>';
 $html .= 'Um abraço do nosso time<br><br>';
 $html .= 'TITI Cuidadores Cuidadosos<br>';
 $html .= 'www.titicuidadores.com.br<br><br>';

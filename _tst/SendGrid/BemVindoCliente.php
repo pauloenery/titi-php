@@ -34,8 +34,8 @@ if ($sexo == 'F') {
 
 $html =   'Obrigado pelo seu cadastro e interesse na nossa plataforma. <BR><BR>'
         . 'Nos colocamos à sua inteira disposição para quaisquer dúvidas ou esclarecimentos, '
-        . 'e queremos que você continue conosco, acompanhando a evolução da plataforma que iniciou há dois meses.<BR><BR><BR>'
-        . 'Uma ótima semana para você e feliz ano novo!<BR><BR>'
+        . 'e queremos que você continue conosco, acompanhando a evolução da plataforma que iniciou há poucos meses.<BR><BR><BR>'
+        . 'Uma ótima semana para você!<BR><BR>'
         . 'Um abraço do nosso time <BR><BR><BR> '
         . 'TITI Cuidadores Cuidadosos<BR><BR>'
         . 'www.titicuidadores.com.br<BR><BR><BR>'

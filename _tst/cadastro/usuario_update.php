@@ -468,7 +468,7 @@ function geo_address($endereco, $bairro, $cep, $cidade, $estado) {
 
     $url = "http://maps.google.com/maps/api/geocode/json?address={$address}";
 
-    $resp_json = file_get_contents($url);
+    $resp_json = file_get_contents_curl($url);
     $resp = json_decode($resp_json, true);
 
     $latitude = '';

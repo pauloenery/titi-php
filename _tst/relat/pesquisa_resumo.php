@@ -1,6 +1,7 @@
 <?php
 
 include "../phpfunction/header_1.php";
+include "../phpfunction/userfunction.php";
 
 $cep = $_GET ["cep"];
 $atuacao = $_GET ["atuacao"];
@@ -9,7 +10,7 @@ $address = urlencode($cep);
 
 $url = "http://maps.google.com/maps/api/geocode/json?address={$address}";
 
-$resp_json = file_get_contents($url);
+$resp_json = file_get_contents_curl($url);
 $resp = json_decode($resp_json, true);
 
 if ($resp['status'] == 'OK'):
@@ -24,7 +25,6 @@ if ($resp['status'] == 'OK'):
 endif;
 
 include "../phpfunction/configuracao.php";
-include "../phpfunction/userfunction.php";
 
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
@@ -69,6 +69,5 @@ while ($dados = mysql_fetch_array($sql)) {
 $json_retorno = json_encode($retorno);
 //var_dump($json_retorno) . '</br>';
 echo $json_retorno;
-
 
 ?>

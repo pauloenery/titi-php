@@ -35,7 +35,7 @@
         $url = "http://maps.google.com/maps/api/geocode/json?address={$address}";
         echo $url . "<br>";
 
-        $resp_json = file_get_contents($url);
+        $resp_json = file_get_contents_curl($url);
         $resp = json_decode($resp_json, true);
 
         $latitude = '';

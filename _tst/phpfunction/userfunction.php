@@ -168,4 +168,21 @@ function calc_idade($data_nasc) {
         return $anos;
     }
 }
+
+function file_get_contents_curl($url) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+
+// configura o curl para retornar o conteudo em vez
+// de fazer o envio directamente para o browser.
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    return $data;
+}
+
 ?>

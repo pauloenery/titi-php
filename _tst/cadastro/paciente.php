@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 include "../phpfunction/header_1.php";
 include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
@@ -88,11 +88,14 @@ http_response_code();
 echo $json_retorno;
 
 function nascimento($nascimento) {
-    $date = DateTime::createFromFormat('d/m/Y', $nascimento);
-
-    //$nascimento = $date->format('Y-m-d');
-    $nascimento = $date->format(DATE_W3C);
-    return $nascimento;
+    if ($nascimento == '') {
+        return $nascimento;
+    } else {
+        $date = DateTime::createFromFormat('d/m/Y', $nascimento);
+        //$nascimento = $date->format('Y-m-d');
+        $nascimento = $date->format(DATE_W3C);
+        return $nascimento;
+    }
 }
 
 ?>

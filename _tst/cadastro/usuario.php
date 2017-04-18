@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 include "../phpfunction/header_1.php";
 include "../phpfunction/geralog.php";
 include "../phpfunction/configuracao.php";
@@ -13,7 +13,7 @@ $entityBody = file_get_contents('php://input');
 //var_dump($entityBody);
 $arrayBody = [json_decode($entityBody, TRUE)];
 //var_dump($arrayBody);
-geralog($entityBody,$_SERVER["PHP_SELF"]);
+geralog($entityBody, $_SERVER["PHP_SELF"]);
 
 $i = 0;
 
@@ -107,7 +107,8 @@ if ($contagem == 0) {
 }
 //var_dump($retorno) . '</br>';
 $json_retorno = json_encode($retorno);
-geralog("UsuarioID:".$usuariosID, $_SERVER["PHP_SELF"]);
+geralog($json_retorno, $_SERVER["PHP_SELF"]);
+geralog("UsuarioID:" . $usuariosID, $_SERVER["PHP_SELF"]);
 
 //var_dump($json_retorno) . '</br>';
 
@@ -115,11 +116,14 @@ http_response_code();
 echo $json_retorno;
 
 function nascimento($nascimento) {
-    $date = DateTime::createFromFormat('d/m/Y', $nascimento);
-
-    //$nascimento = $date->format('Y-m-d');
-    $nascimento = $date->format(DATE_W3C);
-    return $nascimento;
+    if ($nascimento == '') {
+        return $nascimento;
+    } else {
+        $date = DateTime::createFromFormat('d/m/Y', $nascimento);
+        //$nascimento = $date->format('Y-m-d');
+        $nascimento = $date->format(DATE_W3C);
+        return $nascimento;
+    }
 }
 
 ?>

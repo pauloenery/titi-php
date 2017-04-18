@@ -1,4 +1,4 @@
-<?php
+cuid<?php
 
 //
 // SendGrid PHP Library Example
@@ -28,7 +28,7 @@ $mail = new SendGrid\Email();
 ====================================================*/
 try {
     $mail->
-    setFrom( "titi@titi.net.br" )->
+    setFrom( "contato@titicuidadores.com.br" )->
     addTo( "paulo.e.nery@gmail.com" )->
     setSubject( "teste" )->
     setText( "Hello,\n\nThis is a test message from SendGrid.    We have sent this to you because you requested a test message be sent from your account.\n\nThis is a link to google.com: http://www.google.com\nThis is a link to apple.com: http://www.apple.com\nThis is a link to sendgrid.com: http://www.sendgrid.com\n\nThank you for reading this test message.\n\nLove,\nYour friends at SendGrid" )->

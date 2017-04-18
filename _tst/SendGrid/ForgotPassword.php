@@ -30,7 +30,7 @@ $mail = new SendGrid\Email();
 ====================================================*/
 try {
     $mail->
-    setFrom( "titi@titicuidadores.com.br" )->
+    setFrom( "contato@titicuidadores.com.br" )->
     addTo( $email )->
     setSubject( "Recuperar senha" )->
     setText( "Caro(a) $nome, \n\n"

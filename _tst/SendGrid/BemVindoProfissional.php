@@ -57,9 +57,9 @@ $mail_titi = str_replace("[texto]",$html,$mail_titi);
   ==================================================== */
 try {
     $mail->
-            setFrom("titi@titicuidadores.com.br")->
+            setFrom("contato@titicuidadores.com.br")->
             addTo($email)->
-            addBcc("titi@titicuidadores.com.br")->
+            addBcc("contato@titicuidadores.com.br")->
             setSubject($subject)->
             setText($text)->
             setHtml($mail_titi);

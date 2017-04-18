@@ -83,19 +83,17 @@
     </head>
     <body>
         <div class="w3-row-padding" >
-            <div style="background-color: #01D7BC">
+            <div style="background-color: #008efd">
                 <table >
                     <tr align="left">
                         <td width="1%"></td>
                         <td width="4%">
                             <a href="http://titicuidadores.com.br">
-                                <img class="left logo1 tt-lo" width="40px" src="../assets/images/new-logo-titi.png" alt="" style="margin-top:8px;margin-left:10px;"/>
+                                <img class="left logo1 tt-lo" width="100px" src="../assets/images/new-logo-titi.png" alt="" style="margin-top:8px;margin-left:10px;"/>
                             </a>
                         </td>
-                        <td width="50%">
+                        <td width="60%">
                             <h4  style=" font-size:22px;   line-height: 15px; padding-top: 5px; color: #ffffff">
-                                <b>TITI</b>
-                                <br>
                                 <span style="font-size:12px;">Cuidadores cuidadosos</span>
                             </h4>
                         </td>
@@ -137,7 +135,7 @@
                         <span class="w3-col m4 s4">*Avaliação </span>
                         <span class="w3-col m1 w3-hide-small"></span>
 
-                        <div class="rating rating-wrapper w3-col m4 s12">
+                        <div class="rating rating-wrapper w3-col m4 s10">
                             <input type="radio" id="star5" name="rating" value="5" />
                             <label class="full" for="star5" title="Muito satisfeito"></label>
 

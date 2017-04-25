@@ -21,6 +21,8 @@ geralog($entityBody,$_SERVER["PHP_SELF"]);
 $nome = "";
 $email = "";
 $mensagem = "";
+$telefone = "";
+$tipocontato = "";
 
 $i = 0;
 
@@ -28,10 +30,14 @@ if (is_null($arrayBody)) {
     $nome = $_REQUEST ["nome"];
     $email = $_REQUEST ["email"];
     $mensagem = $_REQUEST ["mensagem"];
+    $telefone = $_REQUEST ["telefone"];
+    $tipocontato = $_REQUEST ["tipocontato"];
 } else {
     $nome = (isset($arrayBody ["nome"]) ? $arrayBody ["nome"] : "");
     $email = (isset($arrayBody ["email"]) ? $arrayBody ["email"] : "");
     $mensagem = (isset($arrayBody ["mensagem"]) ? $arrayBody ["mensagem"] : "");
+    $telefone = (isset($arrayBody ["telefone"]) ? $arrayBody ["telefone"] : "");
+    $tipocontato = (isset($arrayBody ["tipocontato"]) ? $arrayBody ["tipocontato"] : "");
 }
 
 $email = strtolower($email);

@@ -54,6 +54,8 @@ function cargo($cargo) {
         return 'Assessor Familiar';
     } else if ($cargo == "8") {
         return 'Acompanhante Cuidador';
+    } else if ($cargo == "9") {
+        return 'Psicólogo';
     } else {
         return 'Não informado';
     }

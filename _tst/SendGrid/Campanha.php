@@ -24,7 +24,6 @@ $sendgrid = new SendGrid($sg_username, $sg_password);
 
 $mail_titi = file_get_contents('../email/mail-titi-campanha.html', true);
 
-$subject = "Convite TITI Cuidadores Cuidadosos";
 
 $html = 'Você foi pré-selecionado através de pesquisas no mercado de trabalho e gostaríamos de convida-lo para fazer parte da nossa plataforma.<br><br>'
         . 'O que é o TITI? TITI é uma plataforma que promove o encontro entre profissionais e famílias que buscam cuidados para idosos, crianças especiais e adultos com limitações de mobilidade. <br><br>'
@@ -39,6 +38,8 @@ $html = 'Você foi pré-selecionado através de pesquisas no mercado de trabalho
 function sendmail($nome, $email) {
     global $mail_titi, $html, $subject, $sendgrid ;
     $mail = new SendGrid\Email();
+
+    $subject = "Convite TITI Cuidadores Cuidadosos - " . $nome;
 
     $text = 'Olá, ' . $nome . ', tudo bem? \n\n' . $html;
     $text = str_replace("<br>", '\n', $text);

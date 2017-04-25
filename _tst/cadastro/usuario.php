@@ -110,6 +110,38 @@ $json_retorno = json_encode($retorno);
 geralog($json_retorno, $_SERVER["PHP_SELF"]);
 geralog("UsuarioID:" . $usuariosID, $_SERVER["PHP_SELF"]);
 
+geralog($retorno[$i]["usuariosID"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["usuariosID"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["perfilID"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["nome"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["nascimento"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["sexo"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["tel"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["cel"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["email"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["foto"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["cpf_cnpj"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["rg"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["endereco"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["bairro"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["cep"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["cidade"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["estado"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["senha"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["termos"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["especialistasID"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["orgaoemissor"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["nr_identificacao"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["registro"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["UF"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["atuacao"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["periodo"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["perfilespecialista"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["habilidade"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["experiencia"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["minicv"], $_SERVER["PHP_SELF"]);
+geralog($retorno[$i]["disponibilidade"], $_SERVER["PHP_SELF"]);
+
 //var_dump($json_retorno) . '</br>';
 
 http_response_code();

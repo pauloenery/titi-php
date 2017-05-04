@@ -58,7 +58,8 @@ $i = 0;
 while ($dados = mysql_fetch_array($sql)) {
 
     $retorno[$i]["foto"] = $dados["foto"];
-    $retorno[$i]["nome"] = nome($dados["nome"]);
+    //$retorno[$i]["nome"] = nome($dados["nome"]);
+    $retorno[$i]["nome"] = $dados["nome"];
     $retorno[$i]["cargo"] = cargo($dados["atuacao"]);
     $retorno[$i]["classificacao"] = $dados["classificacao"];
 

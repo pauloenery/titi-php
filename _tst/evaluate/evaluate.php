@@ -83,30 +83,11 @@
     </head>
     <body>
         <div class="w3-row-padding" >
-            <div style="background-color: #008efd">
-                <table >
-                    <tr align="left">
-                        <td width="1%"></td>
-                        <td width="4%">
-                            <a href="http://titicuidadores.com.br">
-                                <img class="left logo1 tt-lo" width="100px" src="../assets/images/new-logo-titi.png" alt="" style="margin-top:8px;margin-left:10px;"/>
-                            </a>
-                        </td>
-                        <td width="60%">
-                            <h4  style=" font-size:22px;   line-height: 15px; padding-top: 5px; color: #ffffff">
-                                <span style="font-size:12px;">Cuidadores cuidadosos</span>
-                            </h4>
-                        </td>
-                        <td width="1%"></td>
-                        <td width="3%"></td>
-                    </tr>
-                </table>
-            </div>
 
             <div class="w3-col m2"></div>
 
             <div id="content" class="w3-card-4 w3-col m8" style="padding: 0px;">
-                <header class="w3-container w3-center w3-teal">
+                <header class="w3-container w3-center w3-grey">
                     <h1>Classificação do profissional</h1>
                 </header>
 
@@ -179,7 +160,7 @@
 
                     <hr />
                     <div class="w3-row question w3-center">
-                        <input class="w3-btn w3-ripple tt-orange" type="submit" name="Enviar" value="Enviar" style="width: 15em;"/>
+                        <input class="w3-btn w3-ripple tt-red" type="submit" name="Enviar" value="Enviar" style="width: 15em;"/>
                     </div>
 
                     <br>

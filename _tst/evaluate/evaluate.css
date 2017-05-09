@@ -63,6 +63,11 @@ body {
 	box-shadow: 3px 3px 15px #888888;
 }
 
+.tt-red {
+	background-color: #de4d68;
+	box-shadow: 3px 3px 15px #888888;
+}
+
 @media (max-width: 768px) {
   .rating > label:before {
 		width: 0.7em;

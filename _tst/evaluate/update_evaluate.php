@@ -40,7 +40,7 @@ if (usuariosID($email)) {
 
     include '../SendGrid/Evaluate.php';
     echo("<script>alert('Obrigado por colaborar com a sua avaliação ');</script>");
-    echo("<script>location.href = '" .$backendUrl."';</script>");
+    echo("<script>location.href = '" .$homeUrl."';</script>");
 }
 
 Function usuariosID($email) {

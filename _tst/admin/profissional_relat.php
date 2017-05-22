@@ -47,7 +47,7 @@ and open the template in the editor.
         $param = "&max=" . $max;
         $inicial = $pg * $numreg; //######### FIM dados Paginação		
 
-        $querytabela = "SELECT usuarios.usuariosID, usuarios.data, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, especialistasID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, classificacao, total, disponibilidade, ativo FROM usuarios LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID WHERE perfilID = 2";
+        $querytabela = "SELECT usuarios.usuariosID, usuarios.data, nome, nascimento, sexo, tel, cel, email, cpf_cnpj, rg, endereco, bairro, cep, cidade, estado, termos, especialistasID, orgaoemissor, nr_identificacao, registro, UF, atuacao, periodo, perfilespecialista, habilidade, experiencia, classificacao, total, disponibilidade, ativo, origem FROM usuarios LEFT JOIN especialistas ON especialistas.usuariosID=usuarios.usuariosID WHERE perfilID = 2";
 
         // Faz o Select pegando o registro inicial até a quantidade de registros para página	
 
@@ -75,7 +75,6 @@ and open the template in the editor.
         echo "<td>" . 'cep' . "</td>";
         echo "<td>" . 'cidade' . "</td>";
         echo "<td>" . 'estado' . "</td>";
-        echo "<td>" . 'nascimento' . "</td>";
         echo "<td>" . 'termos' . "</td>";
         echo "<td>" . 'especialistasID' . "</td>";
         echo "<td>" . 'orgaoemissor' . "</td>";
@@ -90,6 +89,7 @@ and open the template in the editor.
         echo "<td>" . 'classificacao' . "</td>";
         echo "<td>" . 'total' . "</td>";
         echo "<td>" . 'disponibilidade' . "</td>";
+        echo "<td>" . 'origem' . "</td>";
         echo "</tr>";
 
         while ($aux = mysql_fetch_array($sql)) {
@@ -122,7 +122,6 @@ and open the template in the editor.
             echo "<td>" . $aux['cep'] . "</td>";
             echo "<td>" . $aux['cidade'] . "</td>";
             echo "<td>" . $aux['estado'] . "</td>";
-            echo "<td>" . $aux['nascimento'] . "</td>";
             echo "<td>" . $aux['termos'] . "</td>";
             echo "<td>" . $aux['especialistasID'] . "</td>";
             echo "<td>" . $aux['orgaoemissor'] . "</td>";
@@ -137,6 +136,7 @@ and open the template in the editor.
             echo "<td>" . $aux['classificacao'] . "</td>";
             echo "<td>" . $aux['total'] . "</td>";
             echo "<td>" . $aux['disponibilidade'] . "</td>";
+            echo "<td>" . $aux['origem'] . "</td>";
             echo "</tr>";
         }
 

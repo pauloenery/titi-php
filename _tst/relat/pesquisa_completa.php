@@ -67,7 +67,7 @@ If ($atuacao != 0) {
 }
 $queryprofissional .= "latitude  BETWEEN  '$latitude1' and '$latitude2' and "
         . "longitude BETWEEN  '$longitude1' and '$longitude2' "
-        . "ORDER BY especialistas.classificacao DESC , especialistas.total DESC";
+        . "ORDER BY especialistas.classificacao DESC , especialistas.total DESC , IFNULL( usuarios.foto,  'zzz' ) DESC";
 
 $sql = mysql_query($queryprofissional, $db) or die($queryprofissional . "<br/><br/>" . mysql_error());
 $retorno = array();

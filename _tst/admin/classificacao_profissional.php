@@ -52,6 +52,9 @@ table.sortable thead {
             usuarios.usuariosID,
             especialistas.especialistasID,
             usuarios.nome,
+            usuarios.tel,
+            usuarios.cel,
+            usuarios.email,
             especialistas.experiencia,            
             especialistas.classificacao,
             especialistas.total,
@@ -85,6 +88,9 @@ table.sortable thead {
         echo "<table border='1' width='100%' class='sortable' >";
         echo "<tr>";
         echo "<td>" . 'Nome do Profissional' . "</td>";
+        echo "<td>" . 'Telefone' . "</td>";
+        echo "<td>" . 'Celular' . "</td>";
+        echo "<td>" . 'email' . "</td>";
         echo "<td width='25%'>" . 'Experiência' . "</td>";
         echo "<td>" . 'Classificacao' . "</td>";
         echo "<td>" . 'Total' . "</td>";
@@ -97,6 +103,9 @@ table.sortable thead {
         while ($aux = mysql_fetch_array($sql)) {
             echo "<tr>";
             echo "<td>" . $aux['nome'] . "</td>";
+            echo "<td>" . $aux['tel'] . "</td>";
+            echo "<td>" . $aux['cel'] . "</td>";
+            echo "<td>" . $aux['email'] . "</td>";
             echo "<td>" . $aux['experiencia'] . "</td>";
             echo "<td>" . $aux['classificacao'] . "</td>";
             echo "<td>" . $aux['total'] . "</td>";

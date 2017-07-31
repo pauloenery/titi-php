@@ -29,10 +29,13 @@ include "../phpfunction/configuracao.php";
 $db = mysql_connect($host, $login_db, $senha_db);
 $basedados = mysql_select_db($database);
 
-$latitude1 = (double) $latitude + 0.0665;
-$latitude2 = (double) $latitude - 0.0665;
-$longitude1 = (double) $longitude + 0.0665;
-$longitude2 = (double) $longitude - 0.0665;
+$distancia = 0.0665;
+$distancia = distancia($atuacao);
+
+$latitude1 = (double) $latitude + $distancia;
+$latitude2 = (double) $latitude - $distancia;
+$longitude1 = (double) $longitude + $distancia;
+$longitude2 = (double) $longitude - $distancia;
 
 $queryprofissional = "SELECT 
             usuarios.foto,

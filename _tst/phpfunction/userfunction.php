@@ -61,6 +61,41 @@ function cargo($cargo) {
     }
 }
 
+function distancia($cargo) {
+
+    if ($cargo == "1") {
+        // 'Auxiliar/Técnico enfermagem';
+        return 0.0665;
+    } else if ($cargo == "2") {
+        // 'Enfermeiro';
+        return 0.0665;
+    } else if ($cargo == "3") {
+        // 'Cuidador';
+        return 0.0665;
+    } else if ($cargo == "4") {
+        // 'Fisioterapeuta';
+        return 0.3;
+    } else if ($cargo == "5") {
+        // 'Terapeuta Ocupacional';
+        return 0.0665;
+    } else if ($cargo == "6") {
+        // 'Educador Físico';
+        return 0.0665;
+    } else if ($cargo == "7") {
+        // 'Assessor Familiar';
+        return 0.0665;
+    } else if ($cargo == "8") {
+        // 'Acompanhante Cuidador';
+        return 0.0665;
+    } else if ($cargo == "9") {
+        // 'Psicólogo';
+        return 0.0665;
+    } else {
+        // 'Não informado';
+        return 0.0665;
+    }
+}
+
 function periodo($periodo) {
 
     if ($periodo == "1") {

@@ -45,7 +45,8 @@ $queryprofissional = "SELECT
             usuarios.nome,
             usuarios.tel,
             usuarios.cel,
-            usuarios.email,
+            usuarios.email,            
+            usuarios.url_perfil,
             usuarios.latitude,
             usuarios.longitude,
             especialistas.especialistasID,
@@ -99,6 +100,7 @@ while ($dados = mysql_fetch_array($sql)) {
     $retorno[$i]["minicv"] = $dados["minicv"];
     $retorno[$i]["classificacao"] = $dados["classificacao"];
     $retorno[$i]["total"] = $dados["total"];
+    $retorno[$i]["url_perfil"] = $dados["url_perfil"];
 
     historico_item($pacientes_pesquisaID, $dados["especialistasID"]);
 
